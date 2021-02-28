@@ -1,0 +1,12 @@
+.marca{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.marca h1 {
+    font-family: 'Walter Turncoat', cursive;
+    font-size: 3rem;
+    color: var(--title);
+}

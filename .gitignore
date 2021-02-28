@@ -4,3 +4,7 @@ database/
 boaideia-backend/**/bin/
 
 boaideia-backend/**/obj/
+
+boaideia-frontend/package-lock.json
+
+boaideia-frontend/yarn.lock

@@ -1,0 +1,29 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        // others
+        //"public": true,
+        ".next": true,
+        "node_modules": true,
+        ".gitignore": true,
+        "package.json": true,
+        "package-lock.json": true,
+        "yarn.lock": true,
+        "tsconfig.json": true,
+        "Dockerfile": true,
+        ".dockerignore": true,
+        "next-env.d.ts": true,
+        "next.config.js": true,
+        // project
+        "store": true,
+        //"types.ts": true,
+        //"styles": true,
+        // "pages/_app.tsx": true,
+        // "pages/_document.tsx": true,
+        // "pages/index.tsx": true
+    }
+}
