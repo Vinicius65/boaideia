@@ -1,0 +1,6 @@
+
+database/
+
+boaideia-backend/**/bin/
+
+boaideia-backend/**/obj/
