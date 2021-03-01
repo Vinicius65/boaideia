@@ -4,7 +4,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Roboto, sans-serif;
+  font-family: 'Walter Turncoat', cursive;
+}
+p{
+	font-family: Roboto, sans-serif;
 }
 
 a {
@@ -13,13 +16,14 @@ a {
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
+	box-sizing: border-box;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	color: var(--text);
 }
 
 article, aside, details, figcaption, figure, 
@@ -47,14 +51,14 @@ button{
 /* ------------------------------------ COLORS ------------------------------------ */
 
 :root{
-	--primary: rgb(247, 206, 62);
-	--primary-strong:#F5C20D;
+	--primary: #F7723E;
+	--primary-strong:#f25f25;
 	--title: #F7723E;
 
-	--text: #141412;
-	--text-weak: #13131193;
-	--text-disable: #13131172;
+	--text: #13131193;
+	--text-weak: #13131172;
 	--white: #FAFAFA;
+	--background: #FFE300;
 }
 
 /* ------------------------------------ global ------------------------------------ */
@@ -62,7 +66,12 @@ button{
 .container-full{
 	width: 100%;
 	min-height: 100vh;
-	background-color: var(--white);
+	background: rgb(255,255,255);
+	background: linear-gradient(180deg,
+	 rgba(255,255,255,1) 0%, rgba(255,255,255,1) 32%,
+	 rgba(255,237,87,1) 32%, rgba(255,237,87,1) 80%,
+	 rgba(255,255,255,1) 80%, rgba(255,255,255,1) 90%);
+	 
 }
 button{
 	color: var(--text-weak) !important;
@@ -70,4 +79,18 @@ button{
 
 .surface{
 	box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%), 0 2px 10px 0 rgb(0 0 0 / 7%);
+	background-color: white;
+}
+
+.text{ color: var(--text); }
+.text-weak{ color: var(--text-weak); }
+.text-disable{ color: var(--text-disable); }
+
+.flex{
+	display: flex;
+}
+
+.line{
+	border-bottom: 2px solid var(--text);
+	width: 50%;
 }

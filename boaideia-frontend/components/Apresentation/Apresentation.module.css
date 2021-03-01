@@ -6,7 +6,31 @@
 }
 
 .marca h1 {
-    font-family: 'Walter Turncoat', cursive;
     font-size: 3rem;
     color: var(--title);
 }
+.funcionalidades{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.containerImage{
+    margin: 0 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 130px;
+}
+.containerImage p {
+    margin-top: .5rem;
+    text-align: center;
+}
+
+.image{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #959595;
+}
+
