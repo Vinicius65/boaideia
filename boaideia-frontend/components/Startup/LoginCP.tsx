@@ -33,7 +33,7 @@ export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
             setFeedback({
                 isVisible: true,
                 message: 'Você será redirecionado em instantes..',
-                title: 'Cadastrado com sucesso ;)',
+                title: 'Login realizado com sucesso ;)',
                 type: 'success'
             })
         }
@@ -42,7 +42,7 @@ export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
             setFeedback({
                 isVisible: true,
                 message: ex.message,
-                title: 'Erro ao cadastrar',
+                title: 'Erro ao logar',
                 type: 'error'
             })
 

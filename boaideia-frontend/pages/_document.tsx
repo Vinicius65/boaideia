@@ -1,9 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import FeedbackProvider from '../services/context/feedbackContext'
-
 
 class MyDocument extends Document {
-
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
@@ -19,9 +16,7 @@ class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;900&display=swap" rel="stylesheet" />
         </Head>
         <body>
-          <FeedbackProvider>
-            <Main />
-          </FeedbackProvider>
+          <Main />
           <NextScript />
         </body>
       </Html>
