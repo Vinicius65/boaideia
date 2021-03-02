@@ -1,12 +1,12 @@
 import styles from "./Startup.module.css";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../services/context/userContext";
-import api from "../../services/request";
 import TextInputCP from "../Input/TextInputCP";
 import ButtonPrimaryCP from "../Button/ButtonCP";
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from "@material-ui/core";
 import { FeedbackContext } from "../../services/context/feedbackContext";
+import { ApiContext } from "../../services/context/apiContext";
 
 
 type TProp = {
@@ -18,6 +18,7 @@ type TProp = {
 export default function RegisterCP({ isRegister, setIsRegister, style = {} }: TProp) {
     const { setUser } = useContext(UserContext);
     const { setFeedback } = useContext(FeedbackContext);
+    const { api } = useContext(ApiContext);
 
 
     const [name, setname] = useState("");
@@ -42,7 +43,6 @@ export default function RegisterCP({ isRegister, setIsRegister, style = {} }: TP
             })
         }
         catch (ex) {
-            console.log(ex.message);
             setFeedback({
                 isVisible: true,
                 message: ex.message,

@@ -1,7 +1,7 @@
 import styles from "./Startup.module.css";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../services/context/userContext";
-import api from "../../services/request";
+import { ApiContext } from "../../services/context/apiContext";
 import TextInputCP from "../Input/TextInputCP";
 import ButtonPrimaryCP from "../Button/ButtonCP";
 import Checkbox from '@material-ui/core/Checkbox';
@@ -19,6 +19,7 @@ type TProp = {
 export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
     const { setUser } = useContext(UserContext);
     const { setFeedback } = useContext(FeedbackContext);
+    const { api } = useContext(ApiContext);
 
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
@@ -38,7 +39,6 @@ export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
             })
         }
         catch (ex) {
-            console.log(ex.message);
             setFeedback({
                 isVisible: true,
                 message: ex.message,
