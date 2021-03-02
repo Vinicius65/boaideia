@@ -6,6 +6,7 @@ import TextInputCP from "../Input/TextInputCP";
 import ButtonPrimaryCP from "../Button/ButtonCP";
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from "@material-ui/core";
+import { FeedbackContext } from "../../services/context/feedbackContext";
 
 
 type TProp = {
@@ -16,6 +17,8 @@ type TProp = {
 
 export default function RegisterCP({ isRegister, setIsRegister, style = {} }: TProp) {
     const { setUser } = useContext(UserContext);
+    const { setFeedback } = useContext(FeedbackContext);
+
 
     const [name, setname] = useState("");
     const [email, setemail] = useState("");
@@ -25,14 +28,28 @@ export default function RegisterCP({ isRegister, setIsRegister, style = {} }: TP
 
     const [termo, settermo] = useState(false);
 
+
     const handleSubmit = async (evt: any) => {
         evt.preventDefault();
         try {
             const user = await api.cadastrar({ name, email, password });
             setUser(user);
+            setFeedback({
+                isVisible: true,
+                message: 'Você será redirecionado em instantes..',
+                title: 'Cadastrado com sucesso ;)',
+                type: 'success'
+            })
         }
         catch (ex) {
-            console.log(ex);
+            console.log(ex.message);
+            setFeedback({
+                isVisible: true,
+                message: ex.message,
+                title: 'Erro ao cadastrar',
+                type: 'error'
+            })
+
         }
     };
 

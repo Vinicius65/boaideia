@@ -6,6 +6,7 @@ import TextInputCP from "../Input/TextInputCP";
 import ButtonPrimaryCP from "../Button/ButtonCP";
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from "@material-ui/core";
+import { FeedbackContext } from "../../services/context/feedbackContext";
 
 
 
@@ -17,6 +18,7 @@ type TProp = {
 
 export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
     const { setUser } = useContext(UserContext);
+    const { setFeedback } = useContext(FeedbackContext);
 
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
@@ -28,9 +30,22 @@ export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
         try {
             const user = await api.logar({ email, password });
             setUser(user);
+            setFeedback({
+                isVisible: true,
+                message: 'Você será redirecionado em instantes..',
+                title: 'Cadastrado com sucesso ;)',
+                type: 'success'
+            })
         }
         catch (ex) {
-            console.log(ex);
+            console.log(ex.message);
+            setFeedback({
+                isVisible: true,
+                message: ex.message,
+                title: 'Erro ao cadastrar',
+                type: 'error'
+            })
+
         }
     };
 

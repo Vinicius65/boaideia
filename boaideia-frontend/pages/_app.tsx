@@ -2,17 +2,21 @@ import UserProvider from '../services/context/userContext'
 import '../styles/globals.css'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import FeedbackCP from '../components/Feedback/FeedbackCP';
+import FeedbackProvider from '../services/context/feedbackContext';
 
 export default function MyApp({ Component, pageProps }) {
-
   return (
-    <UserProvider>
-      <ThemeProvider theme={theme}>
-        <div className='container-full'>
-          <Component Component={Component} pageProps={pageProps} />
-        </div>
-      </ThemeProvider>
-    </UserProvider>
+    <FeedbackProvider>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <div className='container-full'>
+            <Component Component={Component} pageProps={pageProps} />
+            <FeedbackCP />
+          </div>
+        </ThemeProvider>
+      </UserProvider>
+    </FeedbackProvider>
   )
 }
 
