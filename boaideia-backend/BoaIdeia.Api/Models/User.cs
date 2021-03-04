@@ -12,8 +12,17 @@ namespace BoaIdeia.Api.Models
         public string Name { get; set; }
         public EmailVO Email { get; set; }
         public string Password { get; set; }
+
         public string Github { get; set; }
+        public string GithubId { get; set; }
+
         public string Stackoverflow { get; set; }
+        public string StackoverflowId { get; set; }
+
+        public string Google { get; set; }
+        public string GoogleId { get; set; }
+
+
         public RankVO SocialRank { get; set; }
         public virtual List<ProjectUser> Projects { get; private set; }
 

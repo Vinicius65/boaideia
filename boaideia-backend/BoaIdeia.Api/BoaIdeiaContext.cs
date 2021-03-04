@@ -97,8 +97,16 @@ namespace BoaIdeia.Api.Models
                 entity.Property(p => p.Name).HasColumnName("name").HasMaxLength(200).IsRequired();
 
                 entity.Property(p => p.Password).HasColumnName("password").HasMaxLength(100).IsRequired();
+
                 entity.Property(p => p.Github).HasColumnName("github").HasMaxLength(200);
+                entity.Property(p => p.GithubId).HasColumnName("github_id").HasMaxLength(500);
+
                 entity.Property(p => p.Stackoverflow).HasColumnName("stackoverflow").HasMaxLength(200);
+                entity.Property(p => p.StackoverflowId).HasColumnName("stackoverflow_id").HasMaxLength(500);
+
+                entity.Property(p => p.Google).HasColumnName("google").HasMaxLength(200);
+                entity.Property(p => p.GoogleId).HasColumnName("google_id").HasMaxLength(500);
+
 
                 entity.OwnsOne(p => p.Email).Property(p => p.Value).HasColumnName("email").HasMaxLength(200).IsRequired();
                 entity.OwnsOne(p => p.SocialRank).Property(p => p.Rank).HasColumnName("social_rank").IsRequired();
