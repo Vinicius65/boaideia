@@ -8,3 +8,5 @@ boaideia-backend/**/obj/
 boaideia-frontend/package-lock.json
 
 boaideia-frontend/yarn.lock
+
+boaideia-frontend/.env
