@@ -3,15 +3,17 @@ using System;
 using BoaIdeia.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BoaIdeia.Api.Migrations
 {
     [DbContext(typeof(BoaIdeiaContext))]
-    partial class BoaIdeiaContextModelSnapshot : ModelSnapshot
+    [Migration("20210304235639_UserModify")]
+    partial class UserModify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
