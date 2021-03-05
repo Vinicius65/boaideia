@@ -4,7 +4,7 @@ type TFeedbackContext = {
     type: 'error' | 'success' | 'warning';
     isVisible: boolean;
     title: string;
-    message: string
+    message?: string
 }
 
 type TProp = {
@@ -18,7 +18,6 @@ export default function FeedbackProvider({ children }) {
 
     const [feedback, setFeedback] = useState({
         isVisible: false,
-        message: '',
         title: '',
         type: 'error'
     } as TFeedbackContext)

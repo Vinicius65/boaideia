@@ -1,8 +1,8 @@
 import axios from "axios";
-import { TCadastro, TLogin, TUser } from "../types";
+import { TCadastro, TGoogleUser, TLogin, TUser } from "../types";
 
 const request = axios.create({
-    baseURL: "http://localhost/",
+    baseURL: process.env.API_URL,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -21,12 +21,20 @@ const api = {
         request.defaults.headers.authorization = token;
     },
 
+    clearToken() {
+        delete request.defaults.headers.authorization;
+    },
+
     async cadastrar(cadastro: TCadastro) {
         return (await handlePost('api/users/cadastrar', cadastro)) as TUser
     },
 
     async logar(login: TLogin) {
         return (await handlePost('api/users/logar', login)) as TUser
+    },
+
+    async logarComGoogle(login: TGoogleUser) {
+        return (await handlePost('api/users/logar/GOOGLE', login)) as TUser
     }
 }
 

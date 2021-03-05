@@ -1,13 +1,10 @@
 import styles from "./Startup.module.css";
-import React, { useContext, useState } from "react";
-import { UserContext } from "../../services/context/userContext";
-import { ApiContext } from "../../services/context/apiContext";
+import React, { useState } from "react";
 import TextInputCP from "../Input/TextInputCP";
 import ButtonPrimaryCP from "../Button/ButtonCP";
 import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from "@material-ui/core";
-import { FeedbackContext } from "../../services/context/feedbackContext";
-
+import { signIn } from 'next-auth/client'
 
 
 type TProp = {
@@ -17,36 +14,13 @@ type TProp = {
 }
 
 export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
-    const { setUser } = useContext(UserContext);
-    const { setFeedback } = useContext(FeedbackContext);
-    const { api } = useContext(ApiContext);
-
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
     const [lembrar, setlembrar] = useState(true);
 
-
-    const handleSubmit = async (evt: any) => {
+    const handleSubmit = (evt: any) => {
         evt.preventDefault();
-        try {
-            const user = await api.logar({ email, password });
-            setUser(user);
-            setFeedback({
-                isVisible: true,
-                message: 'Você será redirecionado em instantes..',
-                title: 'Login realizado com sucesso ;)',
-                type: 'success'
-            })
-        }
-        catch (ex) {
-            setFeedback({
-                isVisible: true,
-                message: ex.message,
-                title: 'Erro ao logar',
-                type: 'error'
-            })
-
-        }
+        signIn('credentials', { email, password });
     };
 
     return (
@@ -61,6 +35,7 @@ export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
                 </svg>
             </div>
             <h2 className={styles.cadastrese}>Login</h2>
+
             <div>
                 <TextInputCP
                     style={{ marginBottom: "1rem" }}
@@ -91,7 +66,6 @@ export default function LoginCP({ isRegister, setIsRegister, style }: TProp) {
                 <Link onClick={setIsRegister} href='#'>Não tenho conta</Link>
             </div>
             <div className='flex'>
-
                 <ButtonPrimaryCP type='submit' style={{ margin: "2rem" }}>
                     Logar
                 </ButtonPrimaryCP>

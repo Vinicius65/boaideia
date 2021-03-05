@@ -33,11 +33,31 @@
     text-align: center;
 }
 
+.googleButton{
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    border: 2px solid var(--text-weak) !important;
+    border-radius: .5rem !important;
+    outline: none !important;
+    color: var(--text) !important;
+    transition: 0.4s all !important;
+    border-color: inherit !important;
+    box-shadow: none !important;
+    transition: .2s linear all;
+}
+
+.googleButton:hover{
+    background-color: var(--primary-strong);
+    transform: scale(1.02);
+}
+
 
 .form{
     animation: toRight .6s cubic-bezier(0.86, 0, 0.07, 1) forwards;
     width: 100%;
 }
+
 
 @keyframes toRight{
     0%{
@@ -53,3 +73,4 @@
         transform: translateX(0);
     }
 }
+

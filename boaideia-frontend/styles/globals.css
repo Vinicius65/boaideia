@@ -6,8 +6,14 @@ body {
   margin: 0;
   font-family: 'Walter Turncoat', cursive;
 }
-p{
+
+p, small, span{
 	font-family: Roboto, sans-serif;
+}
+strong{
+	font-family: 'Walter Turncoat', cursive;
+	font-weight: bold;
+	color: var(--primary);
 }
 
 a {
@@ -67,11 +73,11 @@ button{
 	width: 100%;
 	min-height: 100vh;
 	background: rgb(255,255,255);
-	background: linear-gradient(180deg,
+	/* background: linear-gradient(180deg,
 	 rgba(255,237,87,1) 0%, rgba(255,237,87,1) 25%,
 	 rgba(255,255,255,1) 25%, rgba(255,255,255,1) 50%,
 	 rgba(255,237,87,1) 50%, rgba(255,237,87,1) 75%,
-	 rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	 rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%); */
 }
 button{
 	color: var(--text-weak) !important;

@@ -60,3 +60,11 @@ export type TUser = {
   rank: number;
   token: string;
 }
+
+export type TGoogleUser = {
+  name: string;
+  email?: string;
+  google: string;
+  googleId: string;
+  secretProvider: string;
+}
