@@ -1,4 +1,5 @@
-﻿using BoaIdeia.Api.ValueObject;
+﻿using BoaIdeia.Api.Services;
+using BoaIdeia.Api.ValueObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,16 @@ namespace BoaIdeia.Api.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public EmailVO Email { get; set; }
-        public string Password { get; set; }
+
+        private string _password;
+        public string Password { 
+            get {
+                return _password;
+            } 
+            set {
+                _password = TokenService.GetHash(value);
+            } 
+        }
 
         public string Github { get; set; }
         public string GithubId { get; set; }
