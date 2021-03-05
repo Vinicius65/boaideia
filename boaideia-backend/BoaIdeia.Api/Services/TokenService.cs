@@ -28,6 +28,7 @@ namespace BoaIdeia.Api.Services
         }
 
         public static string Secret = "51scf511a5es1e51ft1ghrt3f51hjnty1jhnu81ytund12j1";
+        public static string SecretProvider = "shjfd8uhij1mkr31msdfkosdkfokkjjfj23i9jfdksmfsdl";
 
         public static string GetHash(string password)
         {
