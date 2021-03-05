@@ -1,7 +1,8 @@
 import ProjectCardCP from "../../components/ProjectCard/ProjectCardCP";
 import styles from './Project.module.css';
+import getInitialProps from "../redirect";
 
-export default function index() {
+const index = () => {
     return (
         <div className={styles.container}>
             <ProjectCardCP />
@@ -12,3 +13,6 @@ export default function index() {
         </div>
     )
 }
+
+index.getInitialProps = getInitialProps;
+export default index;

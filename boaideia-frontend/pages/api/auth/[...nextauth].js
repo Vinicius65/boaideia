@@ -23,7 +23,6 @@ export default NextAuth({
           return user;
         }
         catch (ex) {
-          console.log(ex);
           return null
         }
       }
@@ -51,7 +50,7 @@ export default NextAuth({
     },
 
     async redirect(url, baseUrl) {
-      return baseUrl
+      return baseUrl;
     },
     async session(session, user) {
       return session

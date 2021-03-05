@@ -1,17 +1,18 @@
-import { useSession, signIn, signOut, Session } from 'next-auth/client'
+import React from 'react'
+import ApresentationCP from '../components/Apresentation/ApresentationCP';
+import StartupCP from '../components/Startup/StartupCP'
+import styles from './Index.module.css'
 
 
 export default function Home() {
-  const [session, loading] = useSession()
-
-  if (session) {
-    return <>
-      Signed in as {session.user.email} <br />
-      <button onClick={() => signOut()}>Sign out</button>
-    </>
-  }
-  return <>
-    Not signed in <br />
-    <button onClick={() => signIn()}>Sign in</button>
-  </>
+  return (
+    <main className={styles.container}>
+      <div className={styles.apresentacao}>
+        <ApresentationCP />
+      </div>
+      <div className={styles.loginCadastro}>
+        <StartupCP />
+      </div>
+    </main>
+  )
 }
