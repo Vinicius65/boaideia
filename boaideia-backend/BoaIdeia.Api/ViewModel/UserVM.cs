@@ -13,6 +13,7 @@ namespace BoaIdeia.Api.ViewModel
         public string Email { get; set; }
         public string Github { get; set; }
         public string Stackoverflow { get; set; }
+        public string Google { get; set; }
         public long NumberOfVotation { get; set; }
         public decimal Rank { get; set; }
         public virtual List<Project> Projects { get; set; }

@@ -96,7 +96,7 @@ namespace BoaIdeia.Api.Models
 
                 entity.Property(p => p.Name).HasColumnName("name").HasMaxLength(200).IsRequired();
 
-                entity.Property(p => p.Password).HasColumnName("password").HasMaxLength(100).IsRequired();
+                entity.Property(p => p.Password).HasColumnName("password").HasMaxLength(100);
 
                 entity.Property(p => p.Github).HasColumnName("github").HasMaxLength(200);
                 entity.Property(p => p.GithubId).HasColumnName("github_id").HasMaxLength(500);
