@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using BoaIdeia.Api.ValueObject;
 using BoaIdeia.Api.Services;
 using BoaIdeia.Api.ViewModel.Received;
+using BoaIdeia.Api.Constants;
 
 namespace BoaIdeia.Api.Controllers
 {
@@ -46,9 +47,8 @@ namespace BoaIdeia.Api.Controllers
         [HttpPost]
         [Route("logar")]
         [AllowAnonymous]
-        public async Task<ActionResult<object>> Login(LoginVMR user)
+        public async Task<ActionResult<UserVM>> Login(LoginVMR user)
         {
-            user.Password =  TokenService.GetHash(user.Password);
             var searchUser = await _context.Users.Where(u => u.Email.Value == user.Email && u.Password == user.Password).FirstOrDefaultAsync();
             if (searchUser != null)
             {
@@ -62,7 +62,56 @@ namespace BoaIdeia.Api.Controllers
                     NumberOfVotation = searchUser.SocialRank.NumberOfVotation,
                     Rank = searchUser.SocialRank.Rank,
                     Stackoverflow = searchUser.Stackoverflow,
+                    Google = searchUser.Google,
                     Token = token
+                };
+            }
+            return Unauthorized();
+        }
+
+
+        [HttpPost]
+        [Route("logar/{provider}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<UserVM>> LoginProvider(string provider, LoginProviderVMR userProvider)
+        {
+            if (TokenService.SecretProvider == userProvider.SecretProvider)
+            {
+                User user = null;
+                switch (provider)
+                {
+                    case Providers.GOOGLE:
+                        user = await (_context.Users.Where(u => u.Email.Value == userProvider.Google).FirstOrDefaultAsync() ??
+                                      _context.Users.Where(u => u.Google == userProvider.Google && u.GoogleId == userProvider.GoogleId).FirstOrDefaultAsync());
+
+                        if (user is null)
+                        {
+                            user = new User()
+                            {
+                                Name = userProvider.Name,
+                                Email = new EmailVO(userProvider.Google),
+                                Google = userProvider.Google,
+                                GoogleId = userProvider.GoogleId,
+                            };
+                            await _context.Users.AddAsync(user);
+                            await _context.SaveChangesAsync();
+                        }
+                        break;
+                    default:
+                        return Unauthorized();
+                }
+                
+                var token = TokenService.GenerateToken(user);
+                return new UserVM()
+                {
+                    Email = user.Email.Value,
+                    Github = user.Github,
+                    Id = user.Id,
+                    Name = user.Name,
+                    NumberOfVotation = user.SocialRank.NumberOfVotation,
+                    Rank = user.SocialRank.Rank,
+                    Stackoverflow = user.Stackoverflow,
+                    Token = token,
                 };
             }
             return Unauthorized();
@@ -82,7 +131,7 @@ namespace BoaIdeia.Api.Controllers
             {
                 Name = cadastroUserVM.Name,
                 Email = new EmailVO(cadastroUserVM.Email),
-                Password = TokenService.GetHash(cadastroUserVM.Password),
+                Password = cadastroUserVM.Password,
                 Github = cadastroUserVM.Github,
                 Stackoverflow = cadastroUserVM.Stackoverflow,
             };
