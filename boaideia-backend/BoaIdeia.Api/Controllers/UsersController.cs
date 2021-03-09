@@ -11,6 +11,8 @@ using BoaIdeia.Api.ValueObject;
 using BoaIdeia.Api.Services;
 using BoaIdeia.Api.ViewModel.Received;
 using BoaIdeia.Api.Constants;
+using BoaIdeia.Api.Services.Interfaces;
+using BoaIdeia.Api.Extensions;
 
 namespace BoaIdeia.Api.Controllers
 {
@@ -19,10 +21,12 @@ namespace BoaIdeia.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly BoaIdeiaContext _context;
+        private readonly IGoogleProvider _googleProvider;
 
-        public UsersController(BoaIdeiaContext context)
+        public UsersController(BoaIdeiaContext context, IGoogleProvider googleProvider)
         {
             _context = context;
+            _googleProvider = googleProvider;
         }
 
         [HttpGet]
@@ -75,44 +79,30 @@ namespace BoaIdeia.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<UserVM>> LoginProvider(string provider, LoginProviderVMR userProvider)
         {
-            if (TokenService.SecretProvider == userProvider.SecretProvider)
-            {
-                User user = null;
-                switch (provider)
-                {
-                    case Providers.GOOGLE:
-                        user = await (_context.Users.Where(u => u.Email.Value == userProvider.Google).FirstOrDefaultAsync() ??
-                                      _context.Users.Where(u => u.Google == userProvider.Google && u.GoogleId == userProvider.GoogleId).FirstOrDefaultAsync());
+            if (string.IsNullOrWhiteSpace(provider))
+                return Unauthorized();
 
-                        if (user is null)
-                        {
-                            user = new User()
-                            {
-                                Name = userProvider.Name,
-                                Email = new EmailVO(userProvider.Google),
-                                Google = userProvider.Google,
-                                GoogleId = userProvider.GoogleId,
-                            };
-                            await _context.Users.AddAsync(user);
-                            await _context.SaveChangesAsync();
-                        }
-                        break;
-                    default:
-                        return Unauthorized();
-                }
-                
-                var token = TokenService.GenerateToken(user);
-                return new UserVM()
+            if (provider.ToUpper() == Providers.GOOGLE)
+            {
+                if (await _googleProvider.Auth(userProvider.Email, userProvider.Token))
                 {
-                    Email = user.Email.Value,
-                    Github = user.Github,
-                    Id = user.Id,
-                    Name = user.Name,
-                    NumberOfVotation = user.SocialRank.NumberOfVotation,
-                    Rank = user.SocialRank.Rank,
-                    Stackoverflow = user.Stackoverflow,
-                    Token = token,
-                };
+                    var user = await _context.Users.Where(u => u.Email.Value == userProvider.Email).FirstOrDefaultAsync();
+                    if (user is null)
+                    {
+                        user = new User()
+                        {
+                            Name = userProvider.Name,
+                            Email = new EmailVO(userProvider.Email),
+                        };
+                        await _context.Users.AddAsync(user);
+                        await _context.SaveChangesAsync();
+
+                        var token = TokenService.GenerateToken(user);
+                        var userVM = user.To_UserVM();
+                        userVM.Token = token;
+                        return userVM;
+                    }
+                }
             }
             return Unauthorized();
         }
