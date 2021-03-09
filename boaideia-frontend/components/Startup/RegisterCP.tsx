@@ -5,6 +5,7 @@ import ButtonPrimaryCP from "../Button/ButtonCP";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "@material-ui/core";
 import { signIn } from "next-auth/client";
+import Api from "../../services/request";
 
 type TProp = {
     isRegister: boolean;
@@ -24,9 +25,10 @@ export default function RegisterCP({
     const [confirm, setconfirm] = useState("");
     const [termo, settermo] = useState(false);
 
-    const handleSubmit = (evt: any) => {
+    const handleSubmit = async (evt: any) => {
         evt.preventDefault();
-        signIn('credentials', { name, email, password });
+        const respUser = await Api.cadastrar({ email, name, password });
+        signIn('credentials', { email, password });
     };
 
     return (
