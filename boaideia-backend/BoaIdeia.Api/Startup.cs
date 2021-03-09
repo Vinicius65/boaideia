@@ -28,9 +28,11 @@ namespace BoaIdeia.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            SecretString = Configuration.GetValue<string>("SecretString");
         }
 
         public IConfiguration Configuration { get; }
+        public static string SecretString;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -51,7 +53,7 @@ namespace BoaIdeia.Api
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TokenService.Secret)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretString)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
