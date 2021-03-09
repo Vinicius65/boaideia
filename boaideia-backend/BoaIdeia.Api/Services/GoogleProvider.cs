@@ -14,18 +14,20 @@ namespace BoaIdeia.Api.Services
     public class GoogleProvider : IGoogleProvider
     {
 
-        private readonly HttpClient _request;
-        public GoogleProvider(HttpClient request)
+        public async Task<bool> Auth(string email, string token)
         {
-            _request = request;
-        }
-        public async Task<bool> Auth(string token, string email)
-        {
+
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
-            var response = await _request.GetAsync($"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={token}");
-            var userGoogle = JsonSerializer.Deserialize<UserGoogleProviderDto>(await response.Content.ReadAsStringAsync());
+            var url = $"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={token}";
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("upgrade-insecure-requests", "1");
+            httpClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36");
+
+            var response = await httpClient.GetAsync(url);
+            var userGoogle = JsonSerializer.Deserialize<UserGoogleProviderDto>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true});
 
             if (email.ToLower().Strip() == userGoogle.Email && bool.Parse(userGoogle.Email_verified))
             {

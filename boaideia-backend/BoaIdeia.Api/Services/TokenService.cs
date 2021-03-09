@@ -10,14 +10,10 @@ namespace BoaIdeia.Api.Services
 {
     public class TokenService
     {
-        public static string Secret = "51scf511a5es1e51ft1ghrt3f51hjnty1jhnu81ytund12j1";
-
-
-
         public static string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Secret);
+            var key = Encoding.ASCII.GetBytes(Startup.SecretString);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
