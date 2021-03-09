@@ -19,7 +19,7 @@ namespace DeliverIT.Test.Cenarios
         {
             string email = $"{Path.GetRandomFileName()}@{Path.GetRandomFileName()}.com";
 
-            var user = new CadstroUserVMR()
+            var user = new CadastroUserVMR()
             {
                 Name = name,
                 Email = email,
