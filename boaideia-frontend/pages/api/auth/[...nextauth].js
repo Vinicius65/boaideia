@@ -13,14 +13,9 @@ export default NextAuth({
 
     Providers.Credentials({
       name: 'Credentials',
-      authorize: async ({ name, email, password }) => {
+      authorize: async ({ email, password }) => {
         try {
-          let user;
-          if (name)
-            user = await api.cadastrar({ name, email, password });
-          else
-            user = await api.logar({ email, password })
-          return user;
+          return await api.logar({ email, password })
         }
         catch (ex) {
           return null
@@ -33,12 +28,11 @@ export default NextAuth({
 
   callbacks: {
     async signIn(user, account, profile) {
-      console.log(account);
       if (account.provider === 'google') {
         const search = await api.logarComGoogle({
-          google: user.id,
-          googleId: user.email,
           name: user.name,
+          email: user.email,
+          token: account.idToken,
         });
         api.setToken(search.token);
         return true;
