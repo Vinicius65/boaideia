@@ -1,28 +1,29 @@
 import axios from "axios";
 import { TCadastro, TGoogleUser, TLogin, TUser } from "../types";
 
-const request = axios.create({
-    baseURL: process.env.API_URL,
+
+const Axios = axios.create({
+    baseURL: `http://localhost`,
     headers: {
         'Content-Type': 'application/json'
     }
-})
+});
 
 const handlePost = async (url: string, payload: any) => {
     const contentSend = JSON.stringify(payload);
-    const resp = await request.post(url, contentSend);
+    const resp = await Axios.post(url, contentSend);
     return resp.data;
 }
 
 
 
-const api = {
+const Api = {
     setToken(token: string) {
-        request.defaults.headers.authorization = token;
+        Axios.defaults.headers.authorization = token;
     },
 
     clearToken() {
-        delete request.defaults.headers.authorization;
+        delete Axios.defaults.headers.authorization;
     },
 
     async cadastrar(cadastro: TCadastro) {
@@ -38,4 +39,4 @@ const api = {
     }
 }
 
-export default api;
+export default Api;
