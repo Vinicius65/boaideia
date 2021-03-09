@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BoaIdeia.Api.ViewModel.Received
 {
-    public class CadstroUserVMR
+    public class CadastroUserVMR
     {
         public string Name { get; set; }
         public string Email { get; set; }
