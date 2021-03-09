@@ -10,3 +10,7 @@ boaideia-frontend/package-lock.json
 boaideia-frontend/yarn.lock
 
 boaideia-frontend/.env
+
+boaideia-backend/.vs/
+
+boaideia-frontend/.vscode/
