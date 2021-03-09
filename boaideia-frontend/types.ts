@@ -63,8 +63,6 @@ export type TUser = {
 
 export type TGoogleUser = {
   name: string;
-  email?: string;
-  google: string;
-  googleId: string;
-  secretProvider: string;
+  email: string;
+  token: string;
 }
