@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BoaIdeia.Api.Models;
 using BoaIdeia.Api.Services;
+using BoaIdeia.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -55,8 +56,14 @@ namespace BoaIdeia.Api
                     ValidateAudience = false
                 };
             });
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+
+            // MY SERVICES
+            AddMyServices(services);
+
+
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
 
             services.AddMvc(option =>
@@ -64,6 +71,12 @@ namespace BoaIdeia.Api
                 option.EnableEndpointRouting = false;
                 option.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+        }
+
+
+        public void AddMyServices(IServiceCollection services)
+        {
+            services.AddScoped<IGoogleProvider, GoogleProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BoaIdeiaContext context)
