@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -10,6 +10,10 @@ namespace BoaIdeia.Api.Services
 {
     public class TokenService
     {
+        public static string Secret = "51scf511a5es1e51ft1ghrt3f51hjnty1jhnu81ytund12j1";
+
+
+
         public static string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -19,6 +23,8 @@ namespace BoaIdeia.Api.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Email, user.Email.Value),
                 }),
                 Expires = DateTime.UtcNow.AddYears(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -27,8 +33,6 @@ namespace BoaIdeia.Api.Services
             return $"Bearer {tokenHandler.WriteToken(token)}";
         }
 
-        public static string Secret = "51scf511a5es1e51ft1ghrt3f51hjnty1jhnu81ytund12j1";
-        public static string SecretProvider = "shjfd8uhij1mkr31msdfkosdkfokkjjfj23i9jfdksmfsdl";
 
         public static string GetHash(string password)
         {
