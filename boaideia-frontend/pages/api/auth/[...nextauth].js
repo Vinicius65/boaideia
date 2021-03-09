@@ -6,8 +6,8 @@ export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     Providers.Google({
-      clientId: '1003361965759-rbg5ohjfv026a5u1ao0m8eauocoru81t.apps.googleusercontent.com',
-      clientSecret: 'xwIDDwPPgCQtYAr9rjrDj9kp'
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET
     }),
 
 
@@ -33,12 +33,12 @@ export default NextAuth({
 
   callbacks: {
     async signIn(user, account, profile) {
+      console.log(account);
       if (account.provider === 'google') {
         const search = await api.logarComGoogle({
           google: user.id,
           googleId: user.email,
           name: user.name,
-          secretProvider: process.env.SECRET_PROVIDER,
         });
         api.setToken(search.token);
         return true;
