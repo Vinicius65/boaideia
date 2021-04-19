@@ -14,5 +14,5 @@ const index = () => {
     )
 }
 
-index.getInitialProps = getInitialProps;
+//index.getInitialProps = getInitialProps;
 export default index;

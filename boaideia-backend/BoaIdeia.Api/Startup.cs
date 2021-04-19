@@ -84,13 +84,10 @@ namespace BoaIdeia.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BoaIdeiaContext context)
         {
             Console.WriteLine($"-------------------------------IsDebug: {env.IsDevelopment()}-------------------------------");
+            context.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                context.Database.Migrate();
             }
 
             app.UseSwagger();

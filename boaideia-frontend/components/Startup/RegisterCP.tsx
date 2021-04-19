@@ -35,13 +35,13 @@ export default function RegisterCP({
         <div className={styles.form}>
             <h2 className={styles.cadastrese}>Cadastre-se</h2>
 
-            <button
+            {/* <button
                 onClick={() => {
                     signIn("google");
                 }}
             >
                 Entrar com sua conta google
-            </button>
+            </button> */}
             <form
                 method="POST"
                 onSubmit={handleSubmit}

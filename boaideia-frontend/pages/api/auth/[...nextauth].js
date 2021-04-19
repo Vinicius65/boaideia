@@ -5,10 +5,10 @@ import api from '../../../services/request';
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
-    Providers.Google({
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET
-    }),
+    // Providers.Google({
+    //   clientId: process.env.CLIENT_ID,
+    //   clientSecret: process.env.CLIENT_SECRET
+    // }),
 
 
     Providers.Credentials({
