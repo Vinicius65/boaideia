@@ -4,6 +4,7 @@
 
 :root {
   --black:#141400;
+  --black-weak:#3e3e3c;
   --purple: #4D3EFB;
 }
 
@@ -12,6 +13,10 @@
 .flex {
   display: flex;
 }
+.flex-gap1{
+  display: flex;
+  gap: .5rem;
+}
 .flex-between {
   display: flex;
   justify-content: space-between;
@@ -19,6 +24,11 @@
 .flex-between-center {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.flex-center{
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -40,4 +50,9 @@ a {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+button{
+  border: none;
+  cursor: pointer;
 }

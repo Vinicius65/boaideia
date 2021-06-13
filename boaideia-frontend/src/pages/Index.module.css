@@ -3,9 +3,20 @@
 }
 
 
-.containerCenter{
+.startup{
     display: flex;
-    width: 100%;
+}
+.register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.form{
+    border: 2px solid rgba(20, 20, 0, 0.4);
+    max-width: "540px";
+    padding: 3rem 1.5rem;
+    margin-top: 3.5rem;
 }
 
 .left{
