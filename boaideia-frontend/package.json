@@ -1,5 +1,5 @@
 {
-  "name": "boa-ideia-front",
+  "name": "boaideia-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,29 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
+    "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
-    "@reduxjs/toolkit": "^1.5.0",
-    "@types/axios": "^0.14.0",
-    "@types/js-cookie": "^2.2.6",
-    "@types/material-ui": "^0.21.8",
-    "@types/redux": "^3.6.0",
-    "axios": "^0.21.1",
-    "js-cookie": "^2.2.1",
-    "next": "10.0.7",
-    "next-auth": "^3.7.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-google-login": "^5.2.2",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5",
-    "typescript": "^4.1.5"
+    "formik": "^2.2.9",
+    "next": "10.2.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@types/next-auth": "^3.1.25",
-    "@types/node": "^14.14.31",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
-    "@types/react-redux": "^7.1.16"
+    "@types/react": "17.0.11",
+    "typescript": "4.3.2"
   }
 }

@@ -1,7 +1,0 @@
-.container{
-    display: flex;
-    justify-content: center;
-    max-width: 65%;
-    margin: 0 auto;
-    flex-wrap: wrap;
-}
