@@ -25,6 +25,14 @@ const handleGet = async (route: string) => {
 }
 
 const Api = {
+    setToken(token: string) {
+        Axios.defaults.headers.authorization = token;
+    },
+
+    clearToken() {
+        delete Axios.defaults.headers.authorization;
+    },
+
     async cadastrar(user: TCadastro) {
         return (await handlePost('api/users/cadastrar', user))
     },
