@@ -10,7 +10,9 @@ namespace BoaIdeia.Api.Models
     public class User
     {
         public long Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Username { get; set; }
         public EmailVO Email { get; set; }
 
         private string _password;
@@ -22,12 +24,6 @@ namespace BoaIdeia.Api.Models
                 _password = TokenService.GetHash(value);
             } 
         }
-
-        public string Github { get; set; }
-        public string GithubId { get; set; }
-
-        public string Stackoverflow { get; set; }
-        public string StackoverflowId { get; set; }
 
         public string Google { get; set; }
         public string GoogleId { get; set; }

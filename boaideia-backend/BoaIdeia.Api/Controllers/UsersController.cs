@@ -35,7 +35,7 @@ namespace BoaIdeia.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<UserVM>> Login(LoginVMR user)
         {
-            var searchUser = await _context.Users.Where(u => u.Email.Value == user.Email && u.Password == user.Password).FirstOrDefaultAsync();
+            var searchUser = await _context.Users.Where(u => (u.Email.Value == user.Email|| u.Username == user.Username) && u.Password == user.Password).FirstOrDefaultAsync();
             if (searchUser != null)
             {
                 var token = TokenService.GenerateToken(searchUser);
@@ -62,7 +62,8 @@ namespace BoaIdeia.Api.Controllers
                     {
                         user = new User()
                         {
-                            Name = userProvider.Name,
+                            FirstName = userProvider.FirstName,
+                            LastName = userProvider.LastName,
                             Email = new EmailVO(userProvider.Email),
                         };
                         await _context.Users.AddAsync(user);

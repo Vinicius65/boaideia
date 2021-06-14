@@ -10,6 +10,7 @@ namespace BoaIdeia.Api.ViewModel.Received
     public class LoginVMR
     {
         public string Email { get; set; }
+        public string Username { get; set; }
 
         private string _password;
         public string Password

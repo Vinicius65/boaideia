@@ -19,12 +19,12 @@ namespace BoaIdeia.Api.Extensions
             return new UserVM()
             {
                 Email = user.Email.Value,
-                Github = user.Github,
                 Id = user.Id,
-                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
                 NumberOfVotation = user.SocialRank.NumberOfVotation,
                 Rank = user.SocialRank.Rank,
-                Stackoverflow = user.Stackoverflow,
                 Token = token
             };
         }
@@ -36,11 +36,11 @@ namespace BoaIdeia.Api.Extensions
 
             return new User()
             {
-                Name = userVMR.Name,
+                FirstName = userVMR.FirstName,
+                LastName = userVMR.LastName,
+                Username = userVMR.Username,
                 Email = new EmailVO(userVMR.Email),
                 Password = userVMR.Password,
-                Github = userVMR.Github,
-                Stackoverflow = userVMR.Stackoverflow,
             };
         }
     }

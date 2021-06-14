@@ -19,7 +19,7 @@ namespace BoaIdeia.Api.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Name, user.Username),
                     new Claim(ClaimTypes.Email, user.Email.Value),
                 }),
                 Expires = DateTime.UtcNow.AddYears(1),

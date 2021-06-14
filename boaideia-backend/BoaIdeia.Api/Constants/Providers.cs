@@ -8,6 +8,5 @@ namespace BoaIdeia.Api.Constants
     public static class Providers
     {
         public const string GOOGLE = "GOOGLE";
-        public const string GITHUB = "GITHUB";
     }
 }
