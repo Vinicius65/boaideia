@@ -6,23 +6,25 @@ import styles from '../Index.module.css'
 import ButtonCP from '../../components/Button/ButtonCP';
 import colors from '../../styles/colors';
 import { useRouter } from 'next/router';
+import Api from '../../services/api/Api';
 
 export default function Register() {
     const route = useRouter();
 
     const formik = useFormik({
         initialValues: {
-            firstName: '',
-            lastName: '',
+            firstname: '',
+            lastname: '',
             username: '',
             email: '',
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            //alert(JSON.stringify(values, null, 2));
-            alert("registration performed successfully, please wait...")
-            route.push("home")
+        onSubmit: async (cadastro) => {
+            const respose = await Api.cadastrar(cadastro)
+            console.log(respose);
+            alert("registration performed successfully, click ok...")
+            route.push("login")
         },
     });
 
@@ -43,13 +45,13 @@ export default function Register() {
                             <TextField
                                 variant='outlined'
                                 fullWidth
-                                id="firstName"
-                                name="firstName"
+                                id="firstname"
+                                name="firstname"
                                 label="First Name"
-                                value={formik.values.firstName}
+                                value={formik.values.firstname}
                                 onChange={formik.handleChange}
-                                error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-                                helperText={formik.touched.firstName && formik.errors.firstName}
+                                error={formik.touched.firstname && Boolean(formik.errors.firstname)}
+                                helperText={formik.touched.firstname && formik.errors.firstname}
                             />
                         </div>
 
@@ -57,13 +59,13 @@ export default function Register() {
                             <TextField
                                 variant='outlined'
                                 fullWidth
-                                id="lastName"
-                                name="lastName"
+                                id="lastname"
+                                name="lastname"
                                 label="Last Name"
-                                value={formik.values.lastName}
+                                value={formik.values.lastname}
                                 onChange={formik.handleChange}
-                                error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-                                helperText={formik.touched.lastName && formik.errors.lastName}
+                                error={formik.touched.lastname && Boolean(formik.errors.lastname)}
+                                helperText={formik.touched.lastname && formik.errors.lastname}
                             />
                         </div>
                     </div>

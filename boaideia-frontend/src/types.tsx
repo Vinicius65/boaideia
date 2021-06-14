@@ -7,6 +7,6 @@ export type TCadastro = {
 }
 
 export type TLogin = {
-    login: string,
+    username: string,
     password: string
 }

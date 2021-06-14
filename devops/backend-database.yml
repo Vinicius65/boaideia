@@ -12,7 +12,6 @@ services:
   boaideia-backend:
     build: ../boaideia-backend/
     ports:
-      - "5000:5000"
-      - "5001:5001"
+      - "80:80"
     depends_on:
       - "db"

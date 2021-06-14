@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import validationSchema from './validationSchema';
 import styles from '../Index.module.css'
 import ButtonCP from '../../components/Button/ButtonCP';
-import colors from '../../styles/colors';
 import { useRouter } from 'next/router';
+import Api from '../../services/api/Api';
 
 
 export default function Login() {
@@ -13,12 +13,14 @@ export default function Login() {
 
     const formik = useFormik({
         initialValues: {
-            login: '',
+            username: '',
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert("registration performed successfully, please wait...")
+        onSubmit: async (username) => {
+            const respose = await Api.logar(username)
+            console.log(respose);
+            alert("login successfully, click ok...")
             route.push("home")
         },
     });
@@ -39,13 +41,13 @@ export default function Login() {
                             <TextField
                                 variant='outlined'
                                 fullWidth
-                                id="login"
-                                name="login"
+                                id="username"
+                                name="username"
                                 label="Email or Username"
-                                value={formik.values.login}
+                                value={formik.values.username}
                                 onChange={formik.handleChange}
-                                error={formik.touched.login && Boolean(formik.errors.login)}
-                                helperText={formik.touched.login && formik.errors.login}
+                                error={formik.touched.username && Boolean(formik.errors.username)}
+                                helperText={formik.touched.username && formik.errors.username}
                             />
                         </div>
 
@@ -55,13 +57,14 @@ export default function Login() {
                             id="password"
                             name="password"
                             label="Password"
+                            type="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
                         />
                     </div>
-                    <ButtonCP>
+                    <ButtonCP type="submit">
                         Continue
                     </ButtonCP>
                     <p style={{ fontSize: ".67rem" }}>
