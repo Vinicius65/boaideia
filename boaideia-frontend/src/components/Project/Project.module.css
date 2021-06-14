@@ -1,0 +1,47 @@
+.container{
+    min-width: 300px;
+    max-width: 400px;
+    margin: 1rem;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%), 0 2px 10px 0 rgb(0 0 0 / 7%);
+}
+.container  h2{
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.header{
+    padding: 1rem 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.body{
+    padding: 0.5rem 1rem 1rem;;
+}
+
+.body{
+    font-size: 0.8rem;
+}
+
+.date, .rank{
+    display: flex;
+    justify-content: space-between;
+}
+
+.date > small:first-child, .rank > small:first-child{
+    margin-right: 1rem;
+}
+
+.description{
+    margin-bottom: 1rem;
+    font-size: .9rem;
+}
+.owner {
+    display: flex;
+    align-items: center;
+    margin-top: 0.2rem;
+    margin-left: 0.5rem;
+}
+.owner strong{
+    color: var(--text);
+    margin-left: 0.3rem;
+}
