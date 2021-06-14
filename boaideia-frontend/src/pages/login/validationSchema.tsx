@@ -6,9 +6,9 @@ const validationSchema = yup.object({
         .min(8, 'Password should be of minimum 8 characters length')
         .max(100, 'Password should be of minimum 100 characters length')
         .required('Password is required'),
-    login: yup
+    username: yup
         .string()
-        .required('Password is required'),
+        .required('Username is required'),
 });
 
 export default validationSchema;
