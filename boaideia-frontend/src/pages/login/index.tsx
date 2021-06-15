@@ -4,12 +4,10 @@ import { useFormik } from 'formik';
 import validationSchema from './validationSchema';
 import styles from '../Index.module.css'
 import ButtonCP from '../../components/Button/ButtonCP';
-import { useRouter } from 'next/router';
-import Api from '../../services/api/Api';
+import { signIn } from 'next-auth/client';
 
 
 export default function Login() {
-    const route = useRouter();
 
     const formik = useFormik({
         initialValues: {
@@ -17,11 +15,9 @@ export default function Login() {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: async (username) => {
-            const respose = await Api.logar(username)
-            console.log(respose);
-            alert("login successfully, click ok...")
-            route.push("home")
+        onSubmit: (login) => {
+            const { username, password } = login;
+            signIn('credentials', { username, password });
         },
     });
 
