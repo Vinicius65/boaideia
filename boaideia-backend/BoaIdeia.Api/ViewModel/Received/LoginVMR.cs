@@ -9,8 +9,7 @@ namespace BoaIdeia.Api.ViewModel.Received
 {
     public class LoginVMR
     {
-        public string Email { get; set; }
-        public string Username { get; set; }
+        public string Login { get; set; }
 
         private string _password;
         public string Password
@@ -25,4 +24,12 @@ namespace BoaIdeia.Api.ViewModel.Received
             }
         }
     }
+
+    public class Login
+    {
+        public string Email { get; set; }
+        public string Username { get; set; }
+    }
+
+   
 }
