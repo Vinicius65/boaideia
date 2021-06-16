@@ -9,15 +9,15 @@ services:
     volumes:
       - ../database:/var/lib/postgresql/data 
   
-  boaideia-backend:
+  backend:
     build: ../boaideia-backend/
     depends_on:
       - "db"
 
-  boaideia-frontend:
+  frontend:
     build: ../boaideia-frontend/
     depends_on: 
-      - boaideia-backend
+      - backend
     ports: 
       - 3000:3000
   

@@ -1,7 +1,6 @@
 import MainTitleCP from '../../components/Titles/MainTitleCP'
 import TextField from '@material-ui/core/TextField';
 import { useFormik } from 'formik';
-import validationSchema from './validationSchema';
 import styles from '../Index.module.css'
 import ButtonCP from '../../components/Button/ButtonCP';
 import { useContext, useState } from 'react';
@@ -9,8 +8,23 @@ import { UserContext } from '../../services/context/UserContext';
 import { useRouter } from 'next/router';
 import Header from '../struct/Header';
 import Footer from '../struct/Footer';
+import * as yup from 'yup';
+const validationSchema = yup.object({
+    password: yup
+        .string()
+        .min(8, 'Password should be of minimum 8 characters length')
+        .max(100, 'Password should be of minimum 100 characters length')
+        .required('Password is required'),
+    login: yup
+        .string()
+        .required('Username or Email is required'),
+});
+
 
 export default function Login() {
+
+
+
     const { login } = useContext(UserContext);
     const router = useRouter();
 

@@ -1,0 +1,11 @@
+version: '3'
+services:
+  boaideia-frontend:
+    build: ../boaideia-frontend/
+    ports: 
+      - 3000:3000
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80

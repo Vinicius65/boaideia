@@ -9,7 +9,7 @@ services:
     volumes:
       - ../database:/var/lib/postgresql/data 
   
-  boaideia-backend:
+  backend:
     build: ../boaideia-backend/
     ports:
       - "80:80"
