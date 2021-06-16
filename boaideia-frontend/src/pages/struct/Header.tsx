@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import LinkCP from '../../components/Link/LinkCP'
 import LogoCP from '../../components/Link/LogoCP'
 import colors from '../../styles/colors'
 import { useRouter } from 'next/router'
+import { UserContext } from '../../services/context/UserContext'
 
 
 export default function Header() {
+    const context = useContext(UserContext);
+    const { isLogged, getUser, logout } = context
 
     return (
         <header className='flex-between-center' style={{
@@ -14,17 +17,20 @@ export default function Header() {
             backgroundColor: colors.black
         }}>
             <LogoCP />
-            <NotLoggedIn />
+            {isLogged() ?
+                <Logged logout={logout} /> :
+                <NotLoggedIn />
+            }
         </header>
     )
 }
 
 
 
-const Logged = () => {
+const Logged = ({ logout }: { logout: () => void }) => {
     return (
         <nav>
-            <LinkCP href="/">
+            <LinkCP onClick={() => { logout(); }} href="/">
                 Logout
             </LinkCP>
         </nav>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TCadastro, TLogin } from "../../types";
+import { TCadastro, TLogin, TUser } from "../../types";
 
 
 const Axios = axios.create({
@@ -38,7 +38,7 @@ const Api = {
     },
 
     async logar(user: TLogin) {
-        return (await handlePost('api/users/logar', user))
+        return (await handlePost('api/users/logar', user)) as TUser;
     }
 
 }

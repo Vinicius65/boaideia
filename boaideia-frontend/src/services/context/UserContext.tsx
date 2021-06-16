@@ -1,10 +1,13 @@
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import Cookies from 'js-cookie';
-import { TUser } from "../../types";
+import { TLogin, TUser } from "../../types";
+import Api from "../api/Api";
 
 type TUserContext = {
     getUser: () => TUser | null;
-    setUser: (user: TUser) => void
+    login: (user: TLogin) => Promise<boolean>;
+    logout: () => void;
+    isLogged: () => boolean;
 }
 
 export const UserContext = createContext({} as TUserContext)
@@ -22,10 +25,30 @@ export function UserProvider({ children }: { children: any }) {
         token: ''
     })
 
-    const setUserAndSaveOnCookie = (user: TUser) => {
-        setUser(user);
-        Cookies.set('user', JSON.stringify(user));
+    const login = async (loginForm: TLogin) => {
+        const { login, password } = loginForm;
+        try {
+            const user = await Api.logar({ login, password })
+            Api.setToken(user.token);
+            setUser(user);
+            Cookies.set('user', JSON.stringify(user));
+            return true;
+
+        } catch (ex) {
+            console.log(ex);
+            return false;
+        }
+
     }
+
+    const logout = () => {
+        console.log("sdfsd");
+        Cookies.remove("user");
+        Api.clearToken();
+        setUser({} as TUser);
+    }
+
+    const isLogged = () => !!getUserFromContextOrCookie();
 
     const getUserFromContextOrCookie = () => {
         if (user.token)
@@ -42,7 +65,9 @@ export function UserProvider({ children }: { children: any }) {
     return (
         <UserContext.Provider value={{
             getUser: getUserFromContextOrCookie,
-            setUser: setUserAndSaveOnCookie
+            login,
+            logout,
+            isLogged
         }}>
             {children}
         </UserContext.Provider>
