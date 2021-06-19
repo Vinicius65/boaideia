@@ -10,6 +10,8 @@
 
 /* flex */
 
+
+
 .flex {
   display: flex;
 }
@@ -55,4 +57,7 @@ a {
 button{
   border: none;
   cursor: pointer;
+}
+ul{
+  list-style: none;
 }

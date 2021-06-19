@@ -2,14 +2,15 @@ import styles from "./Project.module.css";
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ProjectDetailsCP from './ProjectDetailsCP'
 
-export default function ProjectCardCP() {
+export default function ProjectCardCP(props: any) {
 
     const isPrivate = true;
     const Icon = isPrivate ? LockIcon : LockOpenIcon;
 
     return (
-        <div className={`${styles.container}`}>
+        <div className={`${styles.container}`} {...props}>
             <div className={styles.header}>
                 <div>
                     <h2>Project name</h2>
@@ -32,8 +33,8 @@ export default function ProjectCardCP() {
                     <small>Rank: <strong>5 Estrelas</strong></small>
                     <small>Votação: <strong>62.594</strong></small>
                 </div>
-
             </div>
+            <ProjectDetailsCP />
         </div>
     );
 }

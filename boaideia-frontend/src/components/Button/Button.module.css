@@ -1,9 +1,8 @@
 .button{
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding: 9px;
+    padding: 9px;
     width: 100%;
     background-color: var(--purple);
     color: white;
     border-radius: 4px;
-    margin: 3rem 0;
 }
