@@ -8,11 +8,12 @@ const ProtectedRoute = ({ router, children }: { router: Router, children: any })
 
     const context = useContext(UserContext);
 
-    enum routers { STARTUP = "/", LOGIN = "/login", REGISTER = "/register" }
+    enum routers { STARTUP = "/", LOGIN = "/login", REGISTER = "/register", RECOVER = '/recover' }
     const unprotectedRoutes = [
         routers.STARTUP,
         routers.LOGIN,
-        routers.REGISTER
+        routers.REGISTER,
+        routers.RECOVER
     ];
 
     let pathIsProtected = !unprotectedRoutes.find(r => r.toString() == router.pathname);

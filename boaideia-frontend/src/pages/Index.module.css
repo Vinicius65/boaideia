@@ -17,6 +17,7 @@
     max-width: "540px";
     padding: 3rem 1.5rem;
     margin-top: 3.5rem;
+    min-width: 500px;
 }
 
 .left{

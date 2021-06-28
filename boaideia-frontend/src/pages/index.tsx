@@ -19,7 +19,7 @@ export default function Index() {
             Ajude as pessoas a desenvolverem seus sonhos! Tire as boas ideias que só estão na cabeça para colocar em prática!
 
           </p>
-          <LinkRightArrowCP href='register'>
+          <LinkRightArrowCP size='lg' href='register'>
             Começar gratuitamente
           </LinkRightArrowCP>
         </div>

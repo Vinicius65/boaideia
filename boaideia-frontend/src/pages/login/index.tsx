@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import Header from '../struct/Header';
 import Footer from '../struct/Footer';
 import * as yup from 'yup';
+import LinkRightArrowCP from '../../components/Link/LinkRightArrowCP';
+
 const validationSchema = yup.object({
     password: yup
         .string()
@@ -86,7 +88,13 @@ export default function Login() {
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
                         />
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '.2rem' }}>
+                            <LinkRightArrowCP size='sm' href="/recover">
+                                Recuperar senha
+                            </LinkRightArrowCP>
+                        </div>
                     </div>
+
                     <p style={{
                         color: "red"
                     }}>
@@ -97,7 +105,6 @@ export default function Login() {
                     </ButtonCP>
                     <p style={{ fontSize: ".67rem", marginTop: '1rem' }}>
                         Ao clicar em Continuar, concordo que li e aceito os Termos de Uso e Política de Privacidade da BoaIdeia
-
                     </p>
                 </form>
             </div>
