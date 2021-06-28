@@ -45,3 +45,45 @@
     color: var(--text);
     margin-left: 0.3rem;
 }
+
+
+.modalContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.658);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modalForm{
+    background-color: white;
+    width: 780px;
+    padding: 2rem;
+    border-radius: .2rem;
+}
+.modalHeader{
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+.modalContent{
+
+}
+.modalFooter{
+    display: flex;
+    justify-content: space-around;
+}
+
+.modalClose{
+    position: absolute;
+    right: -1.5rem;
+    top: -1.5rem;
+    border: 1px solid var(--black-weak);
+    color:red;
+    padding: .8rem;
+}

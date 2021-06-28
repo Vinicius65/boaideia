@@ -1,7 +1,11 @@
 import HomeSearchCP from "../Search/HomeSearchCP";
 import Link from 'next/link'
+import { useState } from "react";
+import ProjectNew from "../Project/ProjectNew";
 
 export default function HomeHeaderCP({ username, filter }: { username: string, filter: (query: string) => void; }) {
+    const [modalIsActivate, setmodalIsActivate] = useState(false);
+    const closeModal = () => setmodalIsActivate(false);
     return (
         <div style={{
             display: 'flex',
@@ -18,7 +22,7 @@ export default function HomeHeaderCP({ username, filter }: { username: string, f
                 </p>
             </div>
             <HomeSearchCP filter={filter} />
-            <Link href="/home/add">
+            <button onClick={() => { setmodalIsActivate(true) }}>
                 <a style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -27,7 +31,8 @@ export default function HomeHeaderCP({ username, filter }: { username: string, f
                     <img src="add.png" alt="Add project" />
                     <p>Novo Projeto</p>
                 </a>
-            </Link>
+            </button>
+            {modalIsActivate && <ProjectNew closeModal={closeModal} />}
         </div>
     )
 }
