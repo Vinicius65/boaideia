@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -28,11 +28,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function HomeSearchCP() {
+export default function HomeSearchCP({ filter }: { filter: (query: string) => void }) {
     const classes = useStyles()
     const handlSearch = (evt: any) => {
         evt.preventDefault();
     }
+    const [query, setQuery] = useState('');
+
+    useEffect(() => {
+        filter(query);
+        console.log(query);
+
+    }, [query])
+
 
     return (
         <Paper component="form" className={classes.root}>
@@ -41,6 +49,8 @@ export default function HomeSearchCP() {
                 className={classes.input}
                 placeholder="Search Projects"
                 inputProps={{ 'aria-label': 'search google maps' }}
+                value={query}
+                onChange={(value) => setQuery(value.target.value)}
             />
             <IconButton type="submit" onClick={handlSearch} className={classes.iconButton} aria-label="search">
                 <SearchIcon />

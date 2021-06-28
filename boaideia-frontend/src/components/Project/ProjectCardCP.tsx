@@ -3,38 +3,39 @@ import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ProjectDetailsCP from './ProjectDetailsCP'
+import { TProject } from "../../types";
 
-export default function ProjectCardCP(props: any) {
+export default function ProjectCardCP({ project, style, ...props }: { project: TProject, style: {} }) {
 
-    const isPrivate = true;
-    const Icon = isPrivate ? LockIcon : LockOpenIcon;
+    const Icon = project.isPrivate ? LockIcon : LockOpenIcon;
+    const { firstname, lastname } = project.userList[0];
 
     return (
-        <div className={`${styles.container}`} {...props}>
+        <div className={`${styles.container}`} style={style} {...props}>
             <div className={styles.header}>
                 <div>
-                    <h2>Project name</h2>
+                    <h2>{project.name}</h2>
                     <div className={styles.owner}>
                         <AccountCircleIcon fontSize='small' />
-                        <strong> Vinicius Siqueira</strong>
+                        <strong>{firstname} {lastname}</strong>
                     </div>
                 </div>
                 <Icon fontSize='small' />
             </div>
             <div className={styles.body}>
-                <p className={styles.description}>Desse projeto tem como objetivo utilizar a inteligência artifical para modelar a interface de usuário comforme o uso. A própria interface recomendará mudanças de layout que podem beneficiar o usuário, fazendo com que cada interface seja personalizada por usuário</p>
+                <p className={styles.description}></p>
 
                 <div className={styles.date}>
-                    <small>Data de início: <strong>25/11/1991</strong></small>
-                    <small>Data de fim: <strong>25/12/1991</strong></small>
+                    <small>Data de início: <strong>{project.startDate.toLocaleDateString("pt-BR")}</strong></small>
+                    <small>Data de fim: <strong>{project.endDate.toLocaleDateString("pt-BR")}</strong></small>
                 </div>
 
                 <div className={styles.rank}>
-                    <small>Rank: <strong>5 Estrelas</strong></small>
-                    <small>Votação: <strong>62.594</strong></small>
+                    <small>Rank: <strong>{project.rank}</strong></small>
+                    <small>Votação: <strong>{project.numberOfVotation}</strong></small>
                 </div>
             </div>
-            <ProjectDetailsCP />
+            <ProjectDetailsCP goalList={project.goalList} />
         </div>
     );
 }

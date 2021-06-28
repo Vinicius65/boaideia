@@ -8,7 +8,7 @@ export default function Index() {
   return (
     <main className={styles.container}>
       <MainTitleCP>
-        Get started with  BoaIdeia
+        Inicie com a BoaIdéia
       </MainTitleCP>
       <div className={styles.startup}>
         <div className={styles.left}>
@@ -16,10 +16,11 @@ export default function Index() {
         </div>
         <div className={styles.right}>
           <p className={styles.text}>
-            Help people to develop their dreams! Take away the good ideas that are only in the head to put into practice!
+            Ajude as pessoas a desenvolverem seus sonhos! Tire as boas ideias que só estão na cabeça para colocar em prática!
+
           </p>
           <LinkRightArrowCP href='register'>
-            Start Free
+            Comece gratuitamente
           </LinkRightArrowCP>
         </div>
       </div>

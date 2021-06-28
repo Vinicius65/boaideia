@@ -4,15 +4,18 @@ import Header from './struct/Header';
 import Footer from './struct/Footer';
 import { UserProvider } from '../services/context/UserContext';
 import ProtectedRoute from '../services/ProtectedRoute'
+import { ProjectProvider } from '../services/context/ProjectContext';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <UserProvider>
-      <ProtectedRoute router={router}>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-      </ProtectedRoute>
+      <ProjectProvider>
+        <ProtectedRoute router={router}>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </ProtectedRoute>
+      </ProjectProvider>
     </UserProvider>
   )
 }

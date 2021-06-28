@@ -1,35 +1,27 @@
 import React, { useContext } from 'react'
 import ProjectCardCP from '../../components/Project/ProjectCardCP'
-import Header from '../struct/Header';
-import Footer from '../struct/Footer';
 import HomeHeaderCP from '../../components/Headers/HomeHeaderCP';
 import { UserContext } from '../../services/context/UserContext';
-import { TUser } from '../../types';
-import { Container } from '@material-ui/core';
+import { ProjectContext } from '../../services/context/ProjectContext';
 
 export default function Home() {
     const { getUser } = useContext(UserContext);
+    const { projectList, filter } = useContext(ProjectContext);
+
+
     const user = getUser();
-    console.log(user);
     return (
         <div>
-            <HomeHeaderCP username={user?.username || ''} />
+            <HomeHeaderCP filter={filter} username={user?.username || ''} />
             <div style={{
                 marginTop: '1.5rem'
             }}>
-
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
-                <ProjectCardCP style={{ margin: '0 auto' }} />
+                {projectList.map((p, index) => (
+                    <ProjectCardCP project={p} key={index} style={{ margin: '0 auto' }} />
+                ))}
 
             </div>
         </div>
     )
 }
+

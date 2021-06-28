@@ -22,3 +22,28 @@ export type TUser = {
     numberOfVotation: number;
     token: string;
 }
+
+export type TProject = {
+    id: number;
+    name: string;
+    description: string;
+    startDate: Date;
+    endDate: Date;
+    expectedEndDate: Date;
+    rank: number;
+    numberOfVotation: number;
+    isPrivate: boolean;
+    goalList: TGoal[];
+    userList: TUser[];
+    all: string;
+}
+
+export type TGoal = {
+    id: number;
+    idProject: number;
+    name: string;
+    description: string;
+    startDate: Date;
+    expectedEndDate: Date;
+    endDate: Date;
+}

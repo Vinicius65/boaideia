@@ -1,7 +1,7 @@
 import HomeSearchCP from "../Search/HomeSearchCP";
 import Link from 'next/link'
 
-export default function HomeHeaderCP({ username }: { username: string }) {
+export default function HomeHeaderCP({ username, filter }: { username: string, filter: (query: string) => void; }) {
     return (
         <div style={{
             display: 'flex',
@@ -17,7 +17,7 @@ export default function HomeHeaderCP({ username }: { username: string }) {
                     Welcome {username}
                 </p>
             </div>
-            <HomeSearchCP />
+            <HomeSearchCP filter={filter} />
             <Link href="/home/add">
                 <a style={{
                     display: 'flex',

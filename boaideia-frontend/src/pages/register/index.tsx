@@ -8,38 +8,43 @@ import { useRouter } from 'next/router';
 import Api from '../../services/api/Api';
 import Header from '../struct/Header';
 import Footer from '../struct/Footer';
-import * as yup from 'yup';
+import * as Yup from 'yup';
 
-const validationSchema = yup.object({
-    firstname: yup
+
+const validationSchema = Yup.object({
+    firstname: Yup
         .string()
-        .min(3, 'First Name should be of minimum 8 characters length')
-        .max(100, 'First Name should be of maximum 100 characters length')
+        .min(3, 'Primeiro nome deve conter ao menos 3 caracteres')
+        .max(100, 'Primeiro nome deve conter no máximo 100 caracteres')
+        .required('Informe o primeiro nome'),
 
-        .required('First Name is required'),
-
-    lastname: yup
+    lastname: Yup
         .string()
-        .min(3, 'Last Name should be of minimum 8 characters length')
-        .max(100, 'Last Name should be of maximum 100 characters length')
-        .required('Last Name is required'),
+        .min(3, 'Último nome deve conter ao menos 3 caracteres')
+        .max(100, 'Último nome deve conter no máximo 100 caracteres')
+        .required('Informe o último nome'),
 
-    username: yup
+    username: Yup
         .string()
-        .min(3, 'Last Name should be of minimum 8 characters length')
-        .max(100, 'Last Name should be of maximum 100 characters length')
-        .required('Last Name is required'),
+        .min(3, 'Nome de usuário deve conter ao menos 3 caracteres')
+        .max(100, 'Nome de usuário deve conter no máximo 100 caracteres')
+        .required('Informe o nome de usuário'),
 
-    email: yup
+    email: Yup
         .string()
-        .email('Enter a valid email')
-        .required('Email is required'),
+        .email('Informe um email válido')
+        .required('Informe o email'),
 
-    password: yup
+    password: Yup
         .string()
-        .min(8, 'Password should be of minimum 8 characters length')
-        .max(100, 'Password should be of minimum 100 characters length')
-        .required('Password is required'),
+        .min(8, 'Password deve conter ao menos 8 caracteres')
+        .max(100, 'Password deve conter ao menos 100 caracteres')
+        .required('Informe a senha'),
+
+    passwordConfirm: Yup
+        .string()
+        .oneOf([Yup.ref('password')], "As senhas devem ser iguais")
+        .required('Confirme a senha'),
 });
 
 export default function Register() {
@@ -54,9 +59,12 @@ export default function Register() {
             username: '',
             email: '',
             password: '',
+            passwordConfirm: ''
         },
         validationSchema: validationSchema,
         onSubmit: async (cadastro) => {
+            console.log(formik.values)
+
             const respose = await Api.cadastrar(cadastro)
             alert("registration performed successfully, click ok...")
             route.push("login")
@@ -66,12 +74,12 @@ export default function Register() {
     return (
         <main className={styles.container}>
             <MainTitleCP>
-                Start a Free
+                Cadastre-se
             </MainTitleCP>
             <div className={styles.register}>
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
                     <p style={{ marginBottom: '1rem', color: colors.blackWeak }}>
-                        Create an account using:
+                        Criar a conta usando:
                     </p>
                     <div className='flex-gap1' style={{
                         marginBottom: '1.5rem'
@@ -82,7 +90,7 @@ export default function Register() {
                                 fullWidth
                                 id="firstname"
                                 name="firstname"
-                                label="First Name"
+                                label="Primeiro Nome"
                                 value={formik.values.firstname}
                                 onChange={formik.handleChange}
                                 error={formik.touched.firstname && Boolean(formik.errors.firstname)}
@@ -96,7 +104,7 @@ export default function Register() {
                                 fullWidth
                                 id="lastname"
                                 name="lastname"
-                                label="Last Name"
+                                label="Último nome"
                                 value={formik.values.lastname}
                                 onChange={formik.handleChange}
                                 error={formik.touched.lastname && Boolean(formik.errors.lastname)}
@@ -113,7 +121,7 @@ export default function Register() {
                             fullWidth
                             id="username"
                             name="username"
-                            label="Username"
+                            label="Nome de usuário"
                             value={formik.values.username}
                             onChange={formik.handleChange}
                             error={formik.touched.username && Boolean(formik.errors.username)}
@@ -146,12 +154,29 @@ export default function Register() {
                             fullWidth
                             id="password"
                             name="password"
-                            label="Password"
+                            label="Senha"
                             type="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
+                        />
+                    </div>
+
+                    <div style={{
+                        marginBottom: '1.5rem'
+                    }}>
+                        <TextField
+                            variant='outlined'
+                            fullWidth
+                            id="passwordConfirm"
+                            name="passwordConfirm"
+                            label="Confirme a Senha"
+                            type="password"
+                            value={formik.values.passwordConfirm}
+                            onChange={formik.handleChange}
+                            error={formik.touched.passwordConfirm && Boolean(formik.errors.passwordConfirm)}
+                            helperText={formik.touched.passwordConfirm && formik.errors.passwordConfirm}
                         />
                     </div>
                     <ButtonCP>
