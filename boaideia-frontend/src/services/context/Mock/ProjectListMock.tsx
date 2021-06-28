@@ -2,6 +2,7 @@ import { TProject } from "../../../types";
 
 const projectList: TProject[] = [
     {
+        all: "",
         endDate: new Date(),
         description: "Desse projeto tem como objetivo utilizar a inteligência artifical para modelar a interface de usuário comforme o uso. A própria interface recomendará mudanças de layout que podem beneficiar o usuário, fazendo com que cada interface seja personalizada por usuário",
         expectedEndDate: new Date(),
@@ -54,6 +55,8 @@ const projectList: TProject[] = [
         ]
     },
     {
+        all: "",
+
         endDate: new Date(),
         description: "Criação de uma aplicação para gerar ideias",
         expectedEndDate: new Date(),
@@ -115,6 +118,8 @@ const projectList: TProject[] = [
         ]
     },
     {
+        all: "",
+
         endDate: new Date(),
         description: "Criação de uma pizzaria 100% automatizada, não tem nem garçom",
         expectedEndDate: new Date(),
@@ -158,6 +163,8 @@ const projectList: TProject[] = [
         ]
     },
     {
+        all: "",
+
         endDate: new Date(),
         description: "Viajar o mundo com 10 reais e 5 desconhecidos",
         expectedEndDate: new Date(),

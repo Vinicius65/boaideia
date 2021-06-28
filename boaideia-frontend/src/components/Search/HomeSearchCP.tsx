@@ -47,7 +47,7 @@ export default function HomeSearchCP({ filter }: { filter: (query: string) => vo
 
             <InputBase
                 className={classes.input}
-                placeholder="Search Projects"
+                placeholder="Buscar projeto"
                 inputProps={{ 'aria-label': 'search google maps' }}
                 value={query}
                 onChange={(value) => setQuery(value.target.value)}
