@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ButtonCP from '../../components/Button/ButtonCP'
+import styles from '../Index.module.css';
 
 export default function Header() {
     const context = useContext(UserContext);
@@ -16,16 +17,13 @@ export default function Header() {
 
 
     return (
-        <header className='flex-between-center' style={{
-            padding: '.3rem 6rem',
-            marginBottom: "2rem",
-            backgroundColor: colors.black
-        }}>
-            <LogoCP />
-            {isLogged() ?
-                <Logged username={user?.username} logout={logout} /> :
-                <NotLoggedIn />
-            }
+        <header className={styles.header}>
+            <nav>
+                {isLogged() ?
+                    <Logged username={user?.username} logout={logout} /> :
+                    <NotLoggedIn />
+                }
+            </nav>
         </header>
     )
 }
@@ -50,7 +48,7 @@ const Logged = ({ logout, username }: { logout: () => void, username?: string })
     };
 
     return (
-        <nav>
+        <>
             <button style={{
                 backgroundColor: colors.black,
                 display: 'flex',
@@ -70,7 +68,7 @@ const Logged = ({ logout, username }: { logout: () => void, username?: string })
             >
                 <MenuItem onClick={handleInClose}>Sair</MenuItem>
             </Menu>
-        </nav>
+        </>
     )
 }
 const NotLoggedIn = () => {
@@ -78,10 +76,8 @@ const NotLoggedIn = () => {
     const logInOrRegister = router.asPath === "/login" ? ["/register", "Registre-se"] : ["/login", "Entrar"];
 
     return (
-        <nav>
-            <LinkCP href={logInOrRegister[0]}>
-                {logInOrRegister[1]}
-            </LinkCP>
-        </nav>
+        <LinkCP href={logInOrRegister[0]}>
+            {logInOrRegister[1]}
+        </LinkCP>
     )
 }

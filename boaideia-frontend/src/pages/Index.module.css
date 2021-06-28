@@ -39,3 +39,50 @@
     font-size: 2rem;
     max-width: 430px;
 }
+
+/* HEADER */
+
+.header nav{
+    margin-top: 1rem;
+    transition: .3s all ease-out;
+}
+.header nav:hover{
+    transform: translateY(.3rem) ;
+}
+
+.header{
+    padding: .6rem 6rem;
+    margin-bottom: 2rem;
+    background-color: var(--black);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* LEFT SIDEBAR */
+.sidebarContainer
+{
+    position: fixed;
+    top: 0;
+    height: 100%;
+    background-color: var(--black-weak);
+    padding: 2rem;
+}
+.sidebarContainer h2{
+    margin-top: 3rem;
+}
+.sidebarContainer * {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.sidebarContainer a{
+    margin-top: 1rem;
+    padding: 1rem;
+    display: block;
+    background-color: black;
+    opacity: .5;
+    transition: .5s all;
+}
+.sidebarContainer a:hover{
+    opacity: .8;
+}

@@ -1,6 +1,8 @@
 .link{
     background-color: var(--purple);
-    padding: .8rem;
+    padding: 1rem;
+    color: whitesmoke;
+    border-radius: .2rem;
 }
 
 .arrowLink {
