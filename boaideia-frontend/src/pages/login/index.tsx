@@ -51,7 +51,7 @@ export default function Login() {
     return (
         <main className={styles.container}>
             <MainTitleCP>
-                Login with  BoaIdeia
+                Entrar em BoaIdeia
             </MainTitleCP>
             <div className={styles.register}>
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
@@ -66,7 +66,7 @@ export default function Login() {
                                 fullWidth
                                 id="login"
                                 name="login"
-                                label="Email or Username"
+                                label="Informe o email ou seu usuário"
                                 value={formik.values.login}
                                 onChange={formik.handleChange}
                                 error={formik.touched.login && Boolean(formik.errors.login)}
@@ -79,7 +79,7 @@ export default function Login() {
                             fullWidth
                             id="password"
                             name="password"
-                            label="Password"
+                            label="Senha"
                             type="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
@@ -95,8 +95,9 @@ export default function Login() {
                     <ButtonCP type="submit">
                         Continue
                     </ButtonCP>
-                    <p style={{ fontSize: ".67rem" }}>
-                        By clicking Continue, I agree that I have read and accepted the BoaIdeia Terms of Use and Privacy Policy
+                    <p style={{ fontSize: ".67rem", marginTop: '1rem' }}>
+                        Ao clicar em Continuar, concordo que li e aceito os Termos de Uso e Política de Privacidade da BoaIdeia
+
                     </p>
                 </form>
             </div>

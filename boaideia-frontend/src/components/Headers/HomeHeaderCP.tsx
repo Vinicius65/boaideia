@@ -14,7 +14,7 @@ export default function HomeHeaderCP({ username, filter }: { username: string, f
             }}>
                 <img src="user.png" alt="User image" />
                 <p>
-                    Welcome {username}
+                    Bem vindo {username}
                 </p>
             </div>
             <HomeSearchCP filter={filter} />
@@ -25,7 +25,7 @@ export default function HomeHeaderCP({ username, filter }: { username: string, f
                     gap: '1rem'
                 }}>
                     <img src="add.png" alt="Add project" />
-                    <p>Add project</p>
+                    <p>Novo Projeto</p>
                 </a>
             </Link>
         </div>

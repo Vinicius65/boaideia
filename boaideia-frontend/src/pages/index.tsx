@@ -20,7 +20,7 @@ export default function Index() {
 
           </p>
           <LinkRightArrowCP href='register'>
-            Comece gratuitamente
+            Começar gratuitamente
           </LinkRightArrowCP>
         </div>
       </div>

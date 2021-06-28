@@ -68,14 +68,14 @@ const Logged = ({ logout, username }: { logout: () => void, username?: string })
                 open={Boolean(anchorEl)}
                 onClose={handleOutClose}
             >
-                <MenuItem onClick={handleInClose}>Logout</MenuItem>
+                <MenuItem onClick={handleInClose}>Sair</MenuItem>
             </Menu>
         </nav>
     )
 }
 const NotLoggedIn = () => {
     const router = useRouter();
-    const logInOrRegister = router.asPath === "/login" ? ["/register", "Register"] : ["/login", "Login"];
+    const logInOrRegister = router.asPath === "/login" ? ["/register", "Registre-se"] : ["/login", "Entrar"];
 
     return (
         <nav>

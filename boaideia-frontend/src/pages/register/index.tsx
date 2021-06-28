@@ -180,10 +180,10 @@ export default function Register() {
                         />
                     </div>
                     <ButtonCP>
-                        Continue
+                        Continuar
                     </ButtonCP>
                     <p style={{ fontSize: ".67rem", marginTop: "1rem" }}>
-                        By clicking Continue, I agree that I have read and accepted the BoaIdeia Terms of Use and Privacy Policy
+                        Ao clicar em Continuar, concordo que li e aceito os Termos de Uso e Política de Privacidade da BoaIdeia
                     </p>
                 </form>
             </div>
