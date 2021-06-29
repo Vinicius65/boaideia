@@ -15,3 +15,9 @@ boaideia-backend/.vs/
 
 boaideia-frontend/.vscode/
 
+
+boaideia-backend/BoaIdeia.Api/appsettings.Development.json
+
+boaideia-backend/BoaIdeia.Api/appsettings.json
+
+devops/docker-compose.yml
