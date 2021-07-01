@@ -9,6 +9,7 @@ import Api from '../../services/api/Api';
 import Header from '../struct/Header';
 import Footer from '../struct/Footer';
 import * as Yup from 'yup';
+import { Link } from '@material-ui/core';
 
 
 const validationSchema = Yup.object({
@@ -74,7 +75,7 @@ export default function Register() {
     return (
         <main className={styles.container}>
             <MainTitleCP>
-                Cadastre-se
+                Iniciar gratuito
             </MainTitleCP>
             <div className={styles.register}>
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
@@ -121,7 +122,7 @@ export default function Register() {
                             fullWidth
                             id="username"
                             name="username"
-                            label="Nome de usuário"
+                            label="Usuário"
                             value={formik.values.username}
                             onChange={formik.handleChange}
                             error={formik.touched.username && Boolean(formik.errors.username)}
@@ -180,12 +181,18 @@ export default function Register() {
                         />
                     </div>
                     <ButtonCP>
-                        Continuar
+                        Cadastrar
                     </ButtonCP>
                     <p style={{ fontSize: ".67rem", marginTop: "1rem" }}>
                         Ao clicar em Continuar, concordo que li e aceito os Termos de Uso e Política de Privacidade da BoaIdeia
                     </p>
                 </form>
+                <p style={{ marginTop: '1rem' }}>
+                    Já tem login e senha?
+                    <Link href="/login" style={{ marginLeft: '.5rem' }}>
+                        Entrar
+                    </Link>
+                </p>
             </div>
         </main>
     )
