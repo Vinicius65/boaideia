@@ -44,10 +44,12 @@ namespace BoaIdeia.Api
             services.AddSwaggerGen();
 
 
-            services.AddAuthentication(auth => {
+            services.AddAuthentication(auth =>
+            {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x => {
+            }).AddJwtBearer(x =>
+            {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
@@ -93,7 +95,8 @@ namespace BoaIdeia.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "api/swagger";
             });
 
             app.UseHttpsRedirection();
