@@ -12,7 +12,6 @@ export default function Sidebar() {
     const user = getUser();
     if (!isLogged() || router.pathname !== '/home') return null;
 
-
     return (
         <nav className={styles.sidebarContainer}>
             <h2>

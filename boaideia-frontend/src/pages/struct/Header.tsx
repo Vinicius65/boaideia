@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ButtonCP from '../../components/Button/ButtonCP'
 import styles from '../Index.module.css';
+import Link from 'next/link'
 
 export default function Header() {
     const context = useContext(UserContext);
@@ -19,10 +20,24 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <nav>
-                {isLogged() ?
-                    <Logged username={user?.username} logout={logout} /> :
-                    <NotLoggedIn />
-                }
+                <Link href="/" >
+                    <div style={{ alignItems: 'center', cursor: 'pointer', display: 'flex' }}>
+                        <img src="/logo.png" alt="Logo Boa Idéia" />
+                        <p style={{
+                            fontSize: "2rem",
+                            color: 'white'
+                        }}> Boa ideia</p>
+                    </div>
+                </Link>
+                <div style={{
+                    position: 'absolute',
+                    right: "5rem"
+                }}>
+                    {isLogged() ?
+                        <Logged username={user?.username} logout={logout} /> :
+                        <NotLoggedIn />
+                    }
+                </div>
             </nav>
         </header>
     )
