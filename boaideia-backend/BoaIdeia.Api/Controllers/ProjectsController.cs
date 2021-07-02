@@ -32,7 +32,7 @@ namespace BoaIdeia.Api.Controllers
         }
 
         [HttpGet]
-        [Route("myprojects")]
+        [Route("meusProjetos")]
         public async Task<ActionResult<IEnumerable<ProjectVM>>> GetMyProjects()
         {
             var projectUser = (await _context.ProjectUser
@@ -67,7 +67,6 @@ namespace BoaIdeia.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(long id, ProjectVM projectVM)
         {
-
             // verificar validações em memória
             if (id != projectVM.Id)
                 return BadRequest();
@@ -125,25 +124,25 @@ namespace BoaIdeia.Api.Controllers
             projectVM.UserInfo.IdProject = project.Id;
             projectVM.UserInfo.TypePermission = TypesOfPermissions.Owner;
 
-
             return CreatedAtAction("GetProjects", new { id = projectVM.Id }, projectVM);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(long id)
         {
-            var project = await _context.ProjectUser
+            var project = (await _context.ProjectUser.Include(p=>p.Project)
              .Where(p => p.IdProject == id)
-             .Where(p => p.IdUser == User.Id())
-             .Where(p => p.IsOwner()).Select(p => p.Project).FirstOrDefaultAsync();
+             .Where(p => p.IdUser == User.Id()).ToListAsync());
 
-            if (project is null)
+            var proj = project.Where(p => p.IsOwner()).Select(p=>p.Project).FirstOrDefault();
+
+            if (proj is null)
                 return Unauthorized();
 
-            _context.Projects.Remove(project);
+            _context.Projects.Remove(proj);
             await _context.SaveChangesAsync();
 
-            return project;
+            return proj;
         }
     }
 }
