@@ -64,13 +64,13 @@ namespace BoaIdeia.Api.Controllers
         }
         
 
-        [HttpPut("{id}")]
+        [HttpPut("editandoProjeto/{id}")]
         public async Task<IActionResult> PutProject(long id, ProjectVM projectVM)
         {
             // verificar validações em memória
             if (id != projectVM.Id)
                 return BadRequest();
-            if (projectVM.UserInfo.IdUser != User.Id() || projectVM.UserInfo.TypePermission != TypesOfPermissions.Owner)
+           if (projectVM.UserInfo.IdUser != User.Id() || projectVM.UserInfo.TypePermission != TypesOfPermissions.Owner)
                 return Unauthorized();
 
             // verificar em banco
