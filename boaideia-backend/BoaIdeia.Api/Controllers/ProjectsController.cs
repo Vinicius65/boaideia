@@ -95,6 +95,7 @@ namespace BoaIdeia.Api.Controllers
         }
 
         [HttpPost]
+        [Route("cadastrarProjeto")]
         public async Task<ActionResult<Project>> PostProject(ProjectVM projectVM)
         {
             if (projectVM.UserInfo == null)
