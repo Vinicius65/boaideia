@@ -130,11 +130,13 @@ namespace BoaIdeia.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(long id)
         {
-            var project = (await _context.ProjectUser.Include(p=>p.Project)
-             .Where(p => p.IdProject == id)
-             .Where(p => p.IdUser == User.Id()).ToListAsync());
+            var project = (await _context.ProjectUser
+                                 .Include(p=>p.Project)
+                                 .Where(p => p.IdProject == id && p.IdUser == User.Id())
+                                 .ToListAsync());
 
-            var proj = project.Where(p => p.IsOwner()).Select(p=>p.Project).FirstOrDefault();
+            var proj = project.Where(p => p.IsOwner())
+                              .Select(p=>p.Project).FirstOrDefault();
 
             if (proj is null)
                 return Unauthorized();
