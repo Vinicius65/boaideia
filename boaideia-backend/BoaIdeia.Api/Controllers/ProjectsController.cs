@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using BoaIdeia.Api.Extensions;
 using BoaIdeia.Api.ViewModel;
 using BoaIdeia.Api.Constants;
+using BoaIdeia.Api.ViewModel.Received;
 
 namespace BoaIdeia.Api.Controllers
 {
@@ -107,6 +108,62 @@ namespace BoaIdeia.Api.Controllers
             var projectUser = new ProjectUser(projectVM.UserInfo.IdUser, TypesOfPermissions.Owner);
             var project = new Project(projectUser)
             { 
+                Description = projectVM.Description,
+                ExpectedEndDate = projectVM.ExpectedEndDate,
+                IsPrivate = projectVM.IsPrivate,
+                Name = projectVM.Name,
+                StartDate = projectVM.StartDate
+            };
+
+            _context.Projects.Add(project);
+            await _context.SaveChangesAsync();
+
+            projectVM.Id = project.Id;
+            projectVM.NumberOfVotation = project.RelevanceRank.NumberOfVotation;
+            projectVM.Rank = project.RelevanceRank.Rank;
+            projectVM.UserInfo.EntryDate = project.Users.First().EntryDate;
+            projectVM.UserInfo.IdProject = project.Id;
+            projectVM.UserInfo.TypePermission = TypesOfPermissions.Owner;
+
+            return CreatedAtAction("GetProjects", new { id = projectVM.Id }, projectVM);
+        }
+
+        [HttpPost]
+        [Route("cadastrarProjetoFullStack")]
+        public async Task<ActionResult<Project>> PostProjectFullStack(ProjectFullStackVM projectVM)
+        {
+            var userExist = await _context.Users
+                                  .Where(p=>p.Email.Value==projectVM.User.Username)
+                                  .Select(p => p.Username).FirstOrDefaultAsync();
+
+
+            if (string.IsNullOrWhiteSpace(userExist))
+            {
+                CadastroUserVMR cadastroUserVM = new CadastroUserVMR();
+
+                cadastroUserVM.FirstName = projectVM.User.FirstName;
+                cadastroUserVM.LastName = projectVM.User.LastName;
+                cadastroUserVM.Username = projectVM.User.Username;
+                cadastroUserVM.Email = projectVM.User.Email;
+                cadastroUserVM.Password = projectVM.User.password;
+                
+                var user = cadastroUserVM.To_User();
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+
+                var userVM = user.To_UserVM();
+
+                projectVM.UserInfo.IdUser = userVM.Id;
+                projectVM.User.Id = userVM.Id;
+                projectVM.User.password = user.Password;
+            }
+
+            if (projectVM.UserInfo == null)
+                return BadRequest(new { Error = "Projeto deve conter o usuário que o criou" });
+
+            var projectUser = new ProjectUser(projectVM.UserInfo.IdUser, TypesOfPermissions.Owner);
+            var project = new Project(projectUser)
+            {
                 Description = projectVM.Description,
                 ExpectedEndDate = projectVM.ExpectedEndDate,
                 IsPrivate = projectVM.IsPrivate,
