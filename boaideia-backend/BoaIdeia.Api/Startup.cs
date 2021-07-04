@@ -96,7 +96,7 @@ namespace BoaIdeia.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "api/swagger";
             });
 
             app.UseHttpsRedirection();
