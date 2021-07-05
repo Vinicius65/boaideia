@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace BoaIdeia.Api.Models
 {
-    public class Political
+    public class PoliticalVM
     {
         public int Id { get; set; }
         public string Name { get; set; }

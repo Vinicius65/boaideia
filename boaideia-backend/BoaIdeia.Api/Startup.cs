@@ -42,6 +42,7 @@ namespace BoaIdeia.Api
                 op.UseNpgsql(Configuration.GetConnectionString("db"));
             });
             services.AddSwaggerGen();
+            
 
 
             services.AddAuthentication(auth =>

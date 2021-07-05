@@ -18,13 +18,13 @@ namespace BoaIdeia.Api.Models
         public bool IsPrivate { get; set; }
         public List<Goal> Timeline { get; private set; }
         public List<Address> Addresses { get; private set; }
-        public List<ProjectUser> Users { get; private set; }
+        public List<ProjectUser> Users { get; set; }
 
-        protected Project(){}
         public Project(ProjectUser users)
         {
             Users = new List<ProjectUser>() { users };
             RelevanceRank = new RankVO();
         }
+        public Project(){}
     }
 }
