@@ -41,7 +41,6 @@ namespace BoaIdeia.Api.Controllers
                 .Include(pu => pu.Project).ToListAsync())
                 .Where(pu => pu.HasAccess());
 
-
             return projectUser.Select(p => new ProjectVM() 
             { 
                 Description = p.Project.Description,
@@ -63,7 +62,38 @@ namespace BoaIdeia.Api.Controllers
                 }
             }).ToList();
         }
-        
+
+        [HttpGet]
+        [Route("meusProjetosFullStack/{username}")]
+        public async Task<ActionResult<IEnumerable<ProjectVM>>> GetMyProjectsFullstack(string username)
+        {
+            var projectUser = (await _context.ProjectUser
+                .Where(pu => pu.User.Username == username)
+                .Include(pu => pu.Project).ToListAsync());
+              
+
+            return projectUser.Select(p => new ProjectVM()
+            {
+                Description = p.Project.Description,
+                EndDate = p.Project.EndDate,
+                ExpectedEndDate = p.Project.ExpectedEndDate,
+                IsPrivate = p.Project.IsPrivate,
+                Name = p.Project.Name,
+                NumberOfVotation = p.Project.RelevanceRank.NumberOfVotation,
+                Rank = p.Project.RelevanceRank.Rank,
+                Id = p.Project.Id,
+                StartDate = p.Project.StartDate,
+                UserInfo = new ProjectUserVM()
+                {
+                    DepartureDate = p.DepartureDate,
+                    EntryDate = p.EntryDate,
+                    TypePermission = p.TypePermission,
+                    IdProject = p.IdProject,
+                    IdUser = p.IdUser
+                }
+                
+            }).ToList();
+        }
 
         [HttpPut("editandoProjeto/{id}")]
         public async Task<IActionResult> PutProject(long id, ProjectVM projectVM)
@@ -135,7 +165,6 @@ namespace BoaIdeia.Api.Controllers
             var userExist = await _context.Users
                                   .Where(p=>p.Email.Value==projectVM.User.Username)
                                   .Select(p => p.Username).FirstOrDefaultAsync();
-
 
             if (string.IsNullOrWhiteSpace(userExist))
             {
