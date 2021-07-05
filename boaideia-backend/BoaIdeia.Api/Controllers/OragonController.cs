@@ -38,6 +38,7 @@ namespace BoaIdeia.Api.Controllers
                 Rank = u.SocialRank.Rank,
                 Projects = u.Projects.Select(p => p.Project).ToList(),
                 Username = u.Username,
+                Id = u.IdOragon
             })
             .ToArrayAsync();
 
