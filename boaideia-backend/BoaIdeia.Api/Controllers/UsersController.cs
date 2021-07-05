@@ -39,8 +39,8 @@ namespace BoaIdeia.Api.Controllers
             if (searchUser != null)
             {
                 
-                //var token = TokenService.GenerateToken(searchUser);
-                return searchUser.To_UserVM();
+                var token = TokenService.GenerateToken(searchUser);
+                return searchUser.To_UserVM(token);
             }
             return Unauthorized();
         }
@@ -70,8 +70,8 @@ namespace BoaIdeia.Api.Controllers
                         await _context.Users.AddAsync(user);
                         await _context.SaveChangesAsync();
                     }
-                    //var token = TokenService.GenerateToken(user);
-                    return user.To_UserVM();
+                    var token = TokenService.GenerateToken(user);
+                    return user.To_UserVM(token);
                 }
             }
             return Unauthorized();

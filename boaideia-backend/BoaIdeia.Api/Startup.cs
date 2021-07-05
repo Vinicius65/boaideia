@@ -28,11 +28,11 @@ namespace BoaIdeia.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //SecretString = Configuration.GetValue<string>("SecretString");
+            SecretString = Configuration.GetValue<string>("SecretString");
         }
 
         public IConfiguration Configuration { get; }
-        //public static string SecretString;
+        public static string SecretString;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -44,22 +44,22 @@ namespace BoaIdeia.Api
             services.AddSwaggerGen();
 
 
-            //services.AddAuthentication(auth =>
-            //{
-            //    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(x =>
-            //{
-            //    x.RequireHttpsMetadata = false;
-            //    x.SaveToken = true;
-            //    x.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretString)),
-            //        ValidateIssuer = false,
-            //        ValidateAudience = false
-            //    };
-            //});
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretString)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
 
             // MY SERVICES
@@ -73,7 +73,7 @@ namespace BoaIdeia.Api
             services.AddMvc(option =>
             {
                 option.EnableEndpointRouting = false;
-               //option.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                option.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
@@ -110,8 +110,8 @@ namespace BoaIdeia.Api
                 builder.AllowAnyHeader();
             });
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
