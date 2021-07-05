@@ -25,6 +25,9 @@ namespace BoaIdeia.Api.Models
             Users = new List<ProjectUser>() { users };
             RelevanceRank = new RankVO();
         }
-        public Project(){}
+        public Project()
+        {
+            RelevanceRank = new RankVO();
+        }
     }
 }
