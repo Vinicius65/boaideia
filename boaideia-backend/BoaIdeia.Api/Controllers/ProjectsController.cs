@@ -15,7 +15,7 @@ namespace BoaIdeia.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ProjectsController : ControllerBase
     {
         private readonly BoaIdeiaContext _context;
