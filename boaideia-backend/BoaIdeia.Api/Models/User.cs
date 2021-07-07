@@ -24,13 +24,15 @@ namespace BoaIdeia.Api.Models
                 _password = TokenService.GetHash(value);
             } 
         }
+        public bool IsPolitical  { get; set;}
 
         public string Google { get; set; }
         public string GoogleId { get; set; }
+        public int IdOragon {get; set;}
 
 
         public RankVO SocialRank { get; set; }
-        public virtual List<ProjectUser> Projects { get; private set; }
+        public List<ProjectUser> Projects { get; set; }
 
         public User()
         {
