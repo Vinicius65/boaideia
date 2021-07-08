@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import { TProject } from "../../types";
-import ProjectListMock from "./Mock/ProjectListMock";
 
 type TProjectContext = {
     projectList: TProject[],
