@@ -8,7 +8,7 @@ import { TProject } from "../../types";
 export default function ProjectCardCP({ project, style, ...props }: { project: TProject, style: {} }) {
 
     const Icon = project.isPrivate ? LockIcon : LockOpenIcon;
-    const { firstname, lastname } = project.userList[0];
+    const { username } = project?.userList.find(u => u.typePermission == "owner") || {username: "vinicius"};
 
     return (
         <div className={`${styles.container}`} style={style} {...props}>
@@ -17,22 +17,24 @@ export default function ProjectCardCP({ project, style, ...props }: { project: T
                     <h2>{project.name}</h2>
                     <div className={styles.owner}>
                         <AccountCircleIcon fontSize='small' />
-                        <strong>{firstname} {lastname}</strong>
+                        <strong>{username}</strong>
                     </div>
-                </div>
+                </div>  
                 <Icon fontSize='small' />
             </div>
             <div className={styles.body}>
-                <p className={styles.description}></p>
+                <p className={styles.description}>
+                    {project.description}
+                </p>
 
                 <div className={styles.date}>
                     <small>Data de início: <strong>{project.startDate.toLocaleDateString("pt-BR")}</strong></small>
-                    <small>Data de fim: <strong>{project.endDate.toLocaleDateString("pt-BR")}</strong></small>
+                    <small>Data de fim: <strong>{project.endDate?.toLocaleDateString("pt-BR")}</strong></small>
                 </div>
 
                 <div className={styles.rank}>
-                    <small>Rank: <strong>{project.rank}</strong></small>
-                    <small>Votação: <strong>{project.numberOfVotation}</strong></small>
+                    <small>Rank: <strong>{project.relevanceRank.rank}</strong></small>
+                    <small>Votação: <strong>{project.relevanceRank.numberOfVotation}</strong></small>
                 </div>
             </div>
             <ProjectDetailsCP goalList={project.goalList} />

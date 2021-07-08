@@ -1,13 +1,21 @@
-import axios from "axios";
-import { TCadastro, TLogin, TUser } from "../../types";
+import axios, { AxiosResponse } from "axios";
+import { TCadastro, TLogin, TProject, TUser } from "../../types";
 
+const isBrowser = () => typeof window !== "undefined";
 
-const Axios = axios.create({
-    baseURL: process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_ADDRESS_PROD : process.env.NEXT_PUBLIC_API_ADDRESS_DEV,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
+const AxiosCreate = () => {
+    const token = isBrowser() ? localStorage.getItem("token") : '';
+    return axios.create({
+       
+        baseURL: process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_ADDRESS_PROD : process.env.NEXT_PUBLIC_API_ADDRESS_DEV,
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": token,
+        },
+    });
+}
+
+const Axios = AxiosCreate();
 
 const handlePost = async (url: string, payload: object) => {
     const contentSend = JSON.stringify(payload);
@@ -27,10 +35,12 @@ const handleGet = async (route: string) => {
 const Api = {
     setToken(token: string) {
         Axios.defaults.headers.authorization = token;
+        localStorage.setItem("token", token);
     },
 
     clearToken() {
         delete Axios.defaults.headers.authorization;
+        localStorage.removeItem("token");
     },
 
     async cadastrar(user: TCadastro) {
@@ -39,6 +49,14 @@ const Api = {
 
     async logar(user: TLogin) {
         return (await handlePost('api/users/logar', user)) as TUser;
+    },
+
+    async getProjects() {
+        return (await handleGet('api/projects')) as TProject[];
+    },
+
+    async getMyProjects() {
+        return (await handleGet('/api/projects/meusProjetos')) as TProject[];
     }
 
 }

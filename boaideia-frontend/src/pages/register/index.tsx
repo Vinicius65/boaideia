@@ -64,8 +64,6 @@ export default function Register() {
         },
         validationSchema: validationSchema,
         onSubmit: async (cadastro) => {
-            console.log(formik.values)
-
             const respose = await Api.cadastrar(cadastro)
             alert("registration performed successfully, click ok...")
             route.push("login")

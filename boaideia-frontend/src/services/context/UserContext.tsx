@@ -42,7 +42,6 @@ export function UserProvider({ children }: { children: any }) {
     }
 
     const logout = () => {
-        console.log("sdfsd");
         Cookies.remove("user");
         Api.clearToken();
         setUser({} as TUser);

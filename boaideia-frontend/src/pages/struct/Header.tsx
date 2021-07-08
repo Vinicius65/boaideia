@@ -20,24 +20,19 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <nav>
-                <Link href="/" >
+                <Link href="/home" >
                     <div style={{ alignItems: 'center', cursor: 'pointer', display: 'flex' }}>
-                        <img src="/logo.png" alt="Logo Boa Idéia" />
                         <p style={{
                             fontSize: "2rem",
                             color: 'white'
                         }}> Boa ideia</p>
                     </div>
                 </Link>
-                <div style={{
-                    position: 'absolute',
-                    right: "5rem"
-                }}>
-                    {isLogged() ?
-                        <Logged username={user?.username} logout={logout} /> :
-                        <NotLoggedIn />
-                    }
-                </div>
+             
+                {isLogged() ?
+                    <Logged username={user?.username} logout={logout} /> :
+                    <NotLoggedIn />
+                }
             </nav>
         </header>
     )
@@ -63,27 +58,47 @@ const Logged = ({ logout, username }: { logout: () => void, username?: string })
     };
 
     return (
-        <>
-            <button style={{
-                backgroundColor: colors.black,
-                display: 'flex',
-                alignItems: 'center'
-            }} onClick={handleClick}>
-                <img src="user.png" alt="User Image" />
-                <p style={{ color: 'white', fontSize: '1.5rem', marginLeft: '.5rem' }}>
-                    {username}
-                </p>
-            </button>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleOutClose}
-            >
-                <MenuItem onClick={handleInClose}>Sair</MenuItem>
-            </Menu>
-        </>
+        <ul>
+            <li>
+                <Link href='/my-projects'>
+                    <a>
+                        Meus Projetos
+                    </a>
+                </Link>
+
+            </li>
+            <li>
+                <Link href='/'>
+                    <a>
+                        Contribuiões
+                    </a>
+                </Link>
+
+            </li>
+            <li>
+                <Link href='/'>
+                    <a>
+                        Avaliações
+                    </a>
+                </Link>
+
+            </li>
+
+            <li>
+                <a onClick={handleClick}>
+                    Meu Perfil
+                </a>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleOutClose}
+                >
+                    <MenuItem onClick={handleInClose}>Sair</MenuItem>
+                </Menu>
+            </li>
+        </ul>
     )
 }
 const NotLoggedIn = () => {
