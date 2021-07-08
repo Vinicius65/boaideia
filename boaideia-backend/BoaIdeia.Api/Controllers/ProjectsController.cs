@@ -163,7 +163,7 @@ namespace BoaIdeia.Api.Controllers
         public async Task<ActionResult<Project>> PostProjectFullStack(ProjectFullStackVM projectVM)
         {
             var userExist = await _context.Users
-                                  .Where(p=>p.Email.Value==projectVM.User.Username)
+                                  .Where(p=>p.Email.Value==projectVM.User.Email || p.Username ==projectVM.User.Username)
                                   .Select(p => p.Username).FirstOrDefaultAsync();
 
             if (string.IsNullOrWhiteSpace(userExist))
@@ -187,8 +187,14 @@ namespace BoaIdeia.Api.Controllers
                 projectVM.User.password = user.Password;
             }
 
+            var userOld = await _context.Users.Where(u => u.Email.Value == projectVM.User.Email || u.Username == projectVM.User.Username)
+                                           .Select(p => p.Id).FirstOrDefaultAsync();
+
             if (projectVM.UserInfo == null)
                 return BadRequest(new { Error = "Projeto deve conter o usuário que o criou" });
+
+            projectVM.UserInfo.IdUser = userOld;
+            projectVM.User.Id = userOld;
 
             var projectUser = new ProjectUser(projectVM.UserInfo.IdUser, TypesOfPermissions.Owner);
             var project = new Project(projectUser)
