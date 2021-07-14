@@ -53,7 +53,7 @@ export default function ProjectDetailsCP({ timeline }: { timeline: TGoal[] }) {
                                     justifyContent: 'space-between'
                                 }}>
                                     <small>Início da meta: <strong>{new Date(meta.startDate).toLocaleDateString('pt-BR')}</strong></small>
-                                    <small>Fim da meta: <strong>{new Date(meta.endDate).toLocaleDateString("pt-BR")}</strong></small>
+                                    <small>Fim da meta: <strong>{new Date(meta.expectedEndDate).toLocaleDateString("pt-BR")}</strong></small>
                                 </div>
                             </li>
                         ))}
