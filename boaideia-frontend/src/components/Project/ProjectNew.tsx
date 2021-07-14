@@ -1,38 +1,83 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styles from './Project.module.css';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import MainTitleCP from '../Titles/MainTitleCP';
-import { TextField } from '@material-ui/core';
+import { Switch, TextField } from '@material-ui/core';
 import ButtonCP from '../Button/ButtonCP';
+import { TGoal, TProject } from '../../types';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import Api from '../../services/api/Api';
+import { ProjectContext } from '../../services/context/ProjectContext';
+
 
 const validationSchema = Yup.object({
     name: Yup
         .string()
-        .min(5, 'Primeiro nome deve conter ao menos 5 caracteres')
-        .max(100, 'Primeiro nome deve conter no máximo 100 caracteres')
+        .min(5, 'O nome do projeto deve conter ao menos 3 caracteres')
+        .max(100, 'O nome do projeto deve conter no máximo 100 caracteres')
         .required('Informe o primeiro nome'),
 
     description: Yup
         .string()
-        .min(10, 'Último nome deve conter ao menos 10 caracteres')
-        .max(500, 'Último nome deve conter no máximo 500 caracteres')
+        .min(10, 'A descrição do projeto deve conter ao menos 10 caracteres')
+        .max(500, 'A descrição do projeto deve conter no máximo 500 caracteres')
         .required('Informe o último nome'),
 
+    isPrivate: Yup
+        .bool(),
+    
+    startDate: Yup
+        .date()
+        .required("Informe uma data de término do projeto"),
+
+    expectedEndDate: Yup
+        .date()
+        .required("Informe uma data de término do projeto"),
+
+    timeline: Yup
+        .array()
+        .of(Yup.object().shape({
+            name: Yup
+                .string()
+                // .min(5, 'O nome da meta deve conter ao menos 3 caracteres')
+                // .max(100, 'O nome da meta deve conter no máximo 100 caracteres')
+                // .required('Informe o nome da meta'),
+                ,
+
+            description: Yup
+                .string()
+                // .min(5, 'A descrição da meta deve conter ao menos 10 caracteres')
+                // .max(100, 'A descrição da meta deve conter no máximo 500 caracteres')
+                // .required('Informe a descrição da meta')
+                ,
+        }))
 
 });
 
 
 export default function ProjectNew({ closeModal }: { closeModal: () => void }) {
+    const { projectList, filter, setProjectList } = useContext(ProjectContext);
 
     const formik = useFormik({
         initialValues: {
             name: '',
             description: '',
-        },
+            expectedEndDate: new Date(),
+            isPrivate: false,
+            startDate: new Date(),
+            timeline: [{
+                name: '',
+                description: '',
+            }]
+        } as TProject,
         validationSchema: validationSchema,
         onSubmit: async (project) => {
-            console.log(project);
+            Api.cadastrarProjeto(project);
+            var resp = await Api.getMyProjects();
+            setProjectList(resp);
         },
     });
     return (
@@ -80,6 +125,92 @@ export default function ProjectNew({ closeModal }: { closeModal: () => void }) {
                         />
                     </div>
 
+                    <div className='flex-gap1' style={{
+                        marginBottom: '1.5rem'
+                    }}>
+                        <div style={{ 
+                            flex: "1",
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                            alignItems: 'center'
+                        }}>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="dd/MM/yyyy"
+                                        margin="normal"
+                                        name="startDate"
+                                        id="startDate"
+                                        label="Data de início"
+                                        value={formik.values.startDate}
+                                        onChange={val => formik.setFieldValue("startDate", val)}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change dayarnte',
+                                        }}
+                                    />
+
+                                <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="dd/MM/yyyy"
+                                        margin="normal"
+                                        name="expectedEndDate"
+                                        id="expectedEndDate"
+                                        label="Data prevista para término"
+                                        value={formik.values.expectedEndDate}
+                                        onChange={val => formik.setFieldValue("expectedEndDate", val)}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change dayarnte',
+                                        }}
+                                    />
+                            </MuiPickersUtilsProvider>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}>
+                                <span>
+                                    Privado
+                                </span>
+                                <Switch
+                                    checked={formik.values.isPrivate}
+                                    onChange={formik.handleChange}
+                                    
+                                    color="primary"
+                                    name="isPrivate"
+                                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{
+                        display: 'flex',
+                        gap: '1rem',
+                        marginBottom: '1.5rem'
+                    }}>
+                        <TextField
+                            style={{flex: 2}}
+                            variant='outlined'
+                            fullWidth
+                            name="timeline[0].name"
+                            label="Nome da meta"
+                            value={formik.values.timeline.find(p => true)?.name}
+                            onChange={formik.handleChange}
+                        />
+                         <TextField
+                            style={{flex: 4}}
+                            variant='outlined'
+                            multiline
+                            rows={1}
+                            fullWidth
+                            name="timeline[0].description"
+                            label="Descrição da meta"
+                            value={formik.values.timeline.find(p => true)?.description}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+
                     <div className={styles.modalFooter}>
                         <div>
                             <ButtonCP>
@@ -92,9 +223,6 @@ export default function ProjectNew({ closeModal }: { closeModal: () => void }) {
                             </ButtonCP>
                         </div>
                     </div>
-                    <p style={{ fontSize: ".67rem", marginTop: "1rem" }}>
-                        Ao clicar em Continuar, concordo que li e aceito os Termos de Uso e Política de Privacidade da BoaIdeia
-                    </p>
                 </form>
             </div>
         </div>

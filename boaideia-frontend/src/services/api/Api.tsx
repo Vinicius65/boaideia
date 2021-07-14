@@ -57,6 +57,13 @@ const Api = {
 
     async getMyProjects() {
         return (await handleGet('/api/projects/meusProjetos')) as TProject[];
+    },
+
+    async getMyContributions() {
+        return (await handleGet('/api/projects/minhasContribuicoes')) as TProject[];
+    },
+    async cadastrarProjeto(project: TProject){
+        return (await handlePost('/api/projects/cadastrarProjeto', project)) as TProject;
     }
 
 }

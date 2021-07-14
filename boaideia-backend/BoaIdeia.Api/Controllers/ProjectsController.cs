@@ -31,6 +31,7 @@ namespace BoaIdeia.Api.Controllers
         {
             return(await GetGenericRecords())
                 .Where(p => !p.IsPrivate)    // projetos públicos
+                .Where(p => !p.Users.Any(u => u.IdUser == User.Id()))    // projetos que não faço parte
                 .Select(SelectRecords)
                 .ToList();
         }
@@ -53,6 +54,7 @@ namespace BoaIdeia.Api.Controllers
         {
             return(await GetGenericRecords())
                 .Where(p => p.Users.Any(u => u.IdUser == User.Id()))    // projetos que faço parte
+                .Where(p => p.Users.Any(u => !u.IsOwner()))             // aonde eu não sou owner
                 .Select(SelectRecords)
                 .ToList();
             

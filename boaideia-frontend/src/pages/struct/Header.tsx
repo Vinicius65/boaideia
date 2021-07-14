@@ -68,7 +68,7 @@ const Logged = ({ logout, username }: { logout: () => void, username?: string })
 
             </li>
             <li>
-                <Link href='/'>
+                <Link href='/my-contributions'>
                     <a>
                         Contribuiões
                     </a>

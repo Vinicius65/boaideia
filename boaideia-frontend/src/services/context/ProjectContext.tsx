@@ -23,7 +23,7 @@ export function ProjectProvider({ children }: { children: any }) {
         }
     }
     const createFieldAll = (p: TProject) =>  
-            `${p.name} ${p.description} ${p.goalList.map(g => `${g.name} ${g.description}`)} ${p.userList.map(u => `${u.username}`)}`.toLowerCase()
+            `${p.name} ${p.description} ${p.timeline.map(g => `${g.name} ${g.description}`)} ${p.userInfo.username}}`.toLowerCase()
 
     const setProjectList = (projectList: TProject[]) => {
         const newProjectList = projectList.map(p => ({

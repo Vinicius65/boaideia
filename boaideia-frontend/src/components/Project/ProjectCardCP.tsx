@@ -8,7 +8,7 @@ import { TProject } from "../../types";
 export default function ProjectCardCP({ project, style, ...props }: { project: TProject, style: {} }) {
 
     const Icon = project.isPrivate ? LockIcon : LockOpenIcon;
-    const { username } = project?.userList.find(u => u.typePermission == "owner") || {username: "vinicius"};
+    const { username } = project.userInfo;
 
     return (
         <div className={`${styles.container}`} style={style} {...props}>
@@ -33,11 +33,11 @@ export default function ProjectCardCP({ project, style, ...props }: { project: T
                 </div>
 
                 <div className={styles.rank}>
-                    <small>Rank: <strong>{project.relevanceRank.rank}</strong></small>
-                    <small>Votação: <strong>{project.relevanceRank.numberOfVotation}</strong></small>
+                    <small>Rank: <strong>{project.rank}</strong></small>
+                    <small>Votação: <strong>{project.numberOfVotation}</strong></small>
                 </div>
             </div>
-            <ProjectDetailsCP goalList={project.goalList} />
+            <ProjectDetailsCP timeline={project.timeline} />
         </div>
     );
 }

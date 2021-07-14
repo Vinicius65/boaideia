@@ -30,15 +30,17 @@ export type TProject = {
     startDate: Date;
     endDate: Date;
     expectedEndDate: Date;
-    relevanceRank: TRelevanceRank;
+    numberOfVotation: number;
+    rank: number;
     isPrivate: boolean;
-    goalList: TGoal[];
-    userList: TUserVM[];
+    timeline: TGoal[];
+    userInfo: TUserVM;
     all: string;
 }
 
 export type TUserVM = {
     username: string;
+    id: number;
     email: string;
     typePermission: string;
 }
@@ -51,10 +53,5 @@ export type TGoal = {
     startDate: Date;
     expectedEndDate: Date;
     endDate: Date;
-}
-
-export type TRelevanceRank = {
-    numberOfVotation: number;
-    rank: number;
 }
 

@@ -23,7 +23,7 @@ const metas = [
     "Terminar a maldita documentação de um projeto",
 ]
 
-export default function ProjectDetailsCP({ goalList }: { goalList: TGoal[] }) {
+export default function ProjectDetailsCP({ timeline }: { timeline: TGoal[] }) {
     const classes = useStyles();
 
     return (
@@ -40,7 +40,7 @@ export default function ProjectDetailsCP({ goalList }: { goalList: TGoal[] }) {
                     <ul style={{
                         width: "100%"
                     }}>
-                        {goalList.map(meta => (
+                        {timeline.map(meta => (
                             <li style={{
                                 borderTop: "1px gray solid",
                                 paddingTop: '1rem',
@@ -52,8 +52,8 @@ export default function ProjectDetailsCP({ goalList }: { goalList: TGoal[] }) {
                                     display: 'flex',
                                     justifyContent: 'space-between'
                                 }}>
-                                    <small>Início da meta: <strong>{meta.startDate.toLocaleDateString('pt-BR')}</strong></small>
-                                    <small>Fim da meta: <strong>{meta.endDate.toLocaleDateString("pt-BR")}</strong></small>
+                                    <small>Início da meta: <strong>{new Date(meta.startDate).toLocaleDateString('pt-BR')}</strong></small>
+                                    <small>Fim da meta: <strong>{new Date(meta.endDate).toLocaleDateString("pt-BR")}</strong></small>
                                 </div>
                             </li>
                         ))}
