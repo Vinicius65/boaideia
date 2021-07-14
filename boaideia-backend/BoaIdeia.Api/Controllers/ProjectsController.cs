@@ -58,7 +58,7 @@ namespace BoaIdeia.Api.Controllers
             
         }
 
-        public ProjectVM SelectRecords(Project p)
+        private ProjectVM SelectRecords(Project p)
             => new ProjectVM
             { 
                 Description = p.Description,
@@ -82,7 +82,7 @@ namespace BoaIdeia.Api.Controllers
                 Timeline = p.Timeline
             };
 
-        public async Task<List<Project>> GetGenericRecords()
+        private async Task<List<Project>> GetGenericRecords()
             => (await _context.Projects
                 .Include(p => p.Users)
                 .ThenInclude(p => p.User)
