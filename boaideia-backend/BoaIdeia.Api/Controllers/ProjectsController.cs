@@ -30,7 +30,7 @@ namespace BoaIdeia.Api.Controllers
         public async Task<ActionResult<IEnumerable<ProjectVM>>> GetProjects()
         {
             return(await GetGenericRecords())
-                .Where(pu => !pu.Project.IsPrivate)    // projetos públicos
+                .Where(p => !p.IsPrivate)    // projetos públicos
                 .Select(SelectRecords)
                 .ToList();
         }
@@ -40,8 +40,8 @@ namespace BoaIdeia.Api.Controllers
         public async Task<ActionResult<IEnumerable<ProjectVM>>> GetMyProjects()
         {
             return(await GetGenericRecords())
-                .Where(pu => pu.IdUser == User.Id())    // projetos que faço parte
-                .Where(pu => pu.IsOwner())              // aonde eu sou owner
+                .Where(p => p.Users.Any(u => u.IdUser == User.Id()))    // projetos que faço parte
+                .Where(p => p.Users.Any(u => u.IsOwner()))              // aonde eu sou owner
                 .Select(SelectRecords)
                 .ToList();
             
@@ -52,41 +52,41 @@ namespace BoaIdeia.Api.Controllers
         public async Task<ActionResult<IEnumerable<ProjectVM>>> GetMyContributions()
         {
             return(await GetGenericRecords())
-                .Where(pu => pu.IdUser == User.Id())    // projetos que faço parte
+                .Where(p => p.Users.Any(u => u.IdUser == User.Id()))    // projetos que faço parte
                 .Select(SelectRecords)
                 .ToList();
             
         }
 
-        public ProjectVM SelectRecords(ProjectUser p)
+        public ProjectVM SelectRecords(Project p)
             => new ProjectVM
             { 
-                Description = p.Project.Description,
-                EndDate = p.Project.EndDate,
-                ExpectedEndDate = p.Project.ExpectedEndDate,
-                IsPrivate = p.Project.IsPrivate,
-                Name = p.Project.Name,
-                NumberOfVotation = p.Project.RelevanceRank.NumberOfVotation,
-                Rank = p.Project.RelevanceRank.Rank,
-                Id = p.Project.Id,
-                StartDate = p.Project.StartDate,
+                Description = p.Description,
+                EndDate = p.EndDate,
+                ExpectedEndDate = p.ExpectedEndDate,
+                IsPrivate = p.IsPrivate,
+                Name = p.Name,
+                NumberOfVotation = p.RelevanceRank.NumberOfVotation,
+                Rank = p.RelevanceRank.Rank,
+                Id = p.Id,
+                StartDate = p.StartDate,
                 UserInfo = new ProjectUserVM() 
                 {
-                    Username = p.User.Username,
-                    DepartureDate = p.DepartureDate,
-                    EntryDate = p.EntryDate,
-                    TypePermission = p.TypePermission,
-                    IdProject = p.IdProject,
-                    IdUser = p.IdUser
+                    Username = p.Users.First(u => u.IsOwner()).User.Username,
+                    DepartureDate = p.Users.First(u => u.IsOwner()).DepartureDate,
+                    EntryDate = p.Users.First(u => u.IsOwner()).EntryDate,
+                    TypePermission = p.Users.First(u => u.IsOwner()).TypePermission,
+                    IdProject = p.Id,
+                    IdUser = p.Users.First(u => u.IsOwner()).User.Id
                 },
-                Timeline = p.Project.Timeline
+                Timeline = p.Timeline
             };
 
-        public async Task<List<ProjectUser>> GetGenericRecords()
-            => (await _context.ProjectUser
-                .Include(pu => pu.Project)
-                .ThenInclude(p => p.Timeline)
-                .Include(pu => pu.User)
+        public async Task<List<Project>> GetGenericRecords()
+            => (await _context.Projects
+                .Include(p => p.Users)
+                .ThenInclude(p => p.User)
+                .Include(p => p.Timeline)
                 .ToListAsync());
 
         [HttpGet]
