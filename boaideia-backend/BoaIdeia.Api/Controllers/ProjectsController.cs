@@ -27,21 +27,39 @@ namespace BoaIdeia.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<ProjectVM>>> GetProjects()
         {
-            return await _context.Projects.Where(p => !p.IsPrivate).ToListAsync();
+            return(await GetGenericRecords())
+                .Where(pu => !pu.Project.IsPrivate)    // projetos públicos
+                .Select(SelectRecords)
+                .ToList();
         }
 
         [HttpGet]
         [Route("meusProjetos")]
         public async Task<ActionResult<IEnumerable<ProjectVM>>> GetMyProjects()
         {
-            var projectUser = (await _context.ProjectUser
-                .Where(pu => pu.IdUser == User.Id())
-                .Include(pu => pu.Project).ToListAsync())
-                .Where(pu => pu.HasAccess());
+            return(await GetGenericRecords())
+                .Where(pu => pu.IdUser == User.Id())    // projetos que faço parte
+                .Where(pu => pu.IsOwner())              // aonde eu sou owner
+                .Select(SelectRecords)
+                .ToList();
+            
+        }
 
-            return projectUser.Select(p => new ProjectVM() 
+        [HttpGet]
+        [Route("minhasContribuicoes")]
+        public async Task<ActionResult<IEnumerable<ProjectVM>>> GetMyContributions()
+        {
+            return(await GetGenericRecords())
+                .Where(pu => pu.IdUser == User.Id())    // projetos que faço parte
+                .Select(SelectRecords)
+                .ToList();
+            
+        }
+
+        public ProjectVM SelectRecords(ProjectUser p)
+            => new ProjectVM
             { 
                 Description = p.Project.Description,
                 EndDate = p.Project.EndDate,
@@ -53,15 +71,23 @@ namespace BoaIdeia.Api.Controllers
                 Id = p.Project.Id,
                 StartDate = p.Project.StartDate,
                 UserInfo = new ProjectUserVM() 
-                { 
+                {
+                    Username = p.User.Username,
                     DepartureDate = p.DepartureDate,
                     EntryDate = p.EntryDate,
                     TypePermission = p.TypePermission,
                     IdProject = p.IdProject,
                     IdUser = p.IdUser
-                }
-            }).ToList();
-        }
+                },
+                Timeline = p.Project.Timeline
+            };
+
+        public async Task<List<ProjectUser>> GetGenericRecords()
+            => (await _context.ProjectUser
+                .Include(pu => pu.Project)
+                .ThenInclude(p => p.Timeline)
+                .Include(pu => pu.User)
+                .ToListAsync());
 
         [HttpGet]
         [Route("meusProjetosFullStack/{username}")]

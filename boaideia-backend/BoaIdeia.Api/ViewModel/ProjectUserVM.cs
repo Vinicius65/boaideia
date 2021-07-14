@@ -7,6 +7,7 @@ namespace BoaIdeia.Api.ViewModel
 {
     public class ProjectUserVM
     {
+        public string Username { get; set;}
         public long IdProject { get; set; }
         public long IdUser { get; set; }
         public DateTime EntryDate { get; set; }

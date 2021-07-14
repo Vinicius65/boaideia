@@ -18,6 +18,8 @@ namespace BoaIdeia.Api.ViewModel
         public decimal Rank { get; set; }
         public bool IsPrivate { get; set; }
         public ProjectUserVM UserInfo { get; set; }
+        public List<Goal> Timeline { get; set; }
+
         public ProjectVM()
         {
             UserInfo = new ProjectUserVM();
