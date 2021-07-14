@@ -20,8 +20,9 @@ namespace BoaIdeia.Api.Models
         public List<Address> Addresses { get; private set; }
         public List<ProjectUser> Users { get; set; }
 
-        public Project(ProjectUser users)
+        public Project(ProjectUser users, List<Goal> timeline)
         {
+            Timeline = timeline;
             Users = new List<ProjectUser>() { users };
             RelevanceRank = new RankVO();
         }

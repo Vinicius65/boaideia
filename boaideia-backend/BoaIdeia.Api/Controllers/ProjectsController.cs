@@ -154,21 +154,14 @@ namespace BoaIdeia.Api.Controllers
         [Route("cadastrarProjeto")]
         public async Task<ActionResult<Project>> PostProject(ProjectVM projectVM)
         {
-            if (projectVM.UserInfo == null)
-                return BadRequest(new { Error = "Projeto deve conter o usuário que o criou" });
-
-            var isCurrentUser = projectVM.UserInfo.IdUser == User.Id();
-            if (!isCurrentUser)
-                return BadRequest(new { Error = "Projeto deve conter o usuário que o criou" });
-
-            var projectUser = new ProjectUser(projectVM.UserInfo.IdUser, TypesOfPermissions.Owner);
-            var project = new Project(projectUser)
+            var projectUser = new ProjectUser(User.Id(), TypesOfPermissions.Owner);
+            var project = new Project(projectUser, projectVM.Timeline)
             { 
                 Description = projectVM.Description,
                 ExpectedEndDate = projectVM.ExpectedEndDate,
                 IsPrivate = projectVM.IsPrivate,
                 Name = projectVM.Name,
-                StartDate = projectVM.StartDate
+                StartDate = projectVM.StartDate,
             };
 
             _context.Projects.Add(project);
@@ -223,7 +216,7 @@ namespace BoaIdeia.Api.Controllers
             projectVM.User.Id = userOld;
 
             var projectUser = new ProjectUser(projectVM.UserInfo.IdUser, TypesOfPermissions.Owner);
-            var project = new Project(projectUser)
+            var project = new Project(projectUser, new List<Goal>())
             {
                 Description = projectVM.Description,
                 ExpectedEndDate = projectVM.ExpectedEndDate,
