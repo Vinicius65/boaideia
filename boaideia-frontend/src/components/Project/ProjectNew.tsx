@@ -68,16 +68,20 @@ export default function ProjectNew({ closeModal }: { closeModal: () => void }) {
             expectedEndDate: new Date(),
             isPrivate: false,
             startDate: new Date(),
+            userInfo: projectList.length == 0 ? {} : projectList[0].userInfo,
             timeline: [{
                 name: '',
                 description: '',
+                startDate: new Date(),
+                expectedEndDate: new Date()
             }]
         } as TProject,
         validationSchema: validationSchema,
         onSubmit: async (project) => {
-            Api.cadastrarProjeto(project);
-            var resp = await Api.getMyProjects();
-            setProjectList(resp);
+            await Api.cadastrarProjeto(project);
+            console.log(project);
+            setProjectList([...projectList, project]);
+            closeModal();
         },
     });
     return (
@@ -213,7 +217,7 @@ export default function ProjectNew({ closeModal }: { closeModal: () => void }) {
 
                     <div className={styles.modalFooter}>
                         <div>
-                            <ButtonCP>
+                            <ButtonCP type='submit'>
                                 Criar
                             </ButtonCP>
                         </div>

@@ -27,6 +27,7 @@ namespace BoaIdeia.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProjectVM>>> GetProjects()
         {
             return(await GetGenericRecords())
