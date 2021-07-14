@@ -68,6 +68,8 @@ export default function ProjectNew({ closeModal }: { closeModal: () => void }) {
             expectedEndDate: new Date(),
             isPrivate: false,
             startDate: new Date(),
+            rank: 5,
+            numberOfVotation: 1,
             userInfo: projectList.length == 0 ? {} : projectList[0].userInfo,
             timeline: [{
                 name: '',

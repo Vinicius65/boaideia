@@ -29,7 +29,7 @@ export default function ProjectCardCP({ project, style, ...props }: { project: T
 
                 <div className={styles.date}>
                     <small>Data de início: <strong>{project.startDate.toLocaleDateString("pt-BR")}</strong></small>
-                    <small>Data de fim: <strong>{project.endDate?.toLocaleDateString("pt-BR")}</strong></small>
+                    <small>Data de fim: <strong>{project.expectedEndDate?.toLocaleDateString("pt-BR")}</strong></small>
                 </div>
 
                 <div className={styles.rank}>
